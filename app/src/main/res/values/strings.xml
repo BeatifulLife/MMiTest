@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">MMiTest</string>
+    <string name="paoma">跑马灯的效果，点击暂停，再点击恢复</string>
+    <string name="paomatext">我们需要根据上面的Json串来写出对应的Bean类，看得出上面的字段还是不少的，所以把所有的字段都写出来还是有一定的工作量的，而且手工写容易出错，一旦字段不对应，可能会导致整个解析过程出错，这时候GsonFormat迫不及待地跳出来：用我，用我！</string>
+    <string name="audiorecord">开始录音</string>
+    <string name="audiorecordplay">停止并播放</string>
+    <string name="volup">音量+</string>
+    <string name="voldown">音量-</string>
+    <string name="gsensortitle">加速度传感</string>
+    <string name="gpstitle">GPS</string>
+    <string name="satellitecount">卫星数:</string>
+    <string name="longitude">经度:</string>
+    <string name="lagitude">纬度:</string>
+    <string name="wifitiltle">Wifi</string>
+    <string name="wifiscan">正在扫描...</string>
+    <string name="maxlevelwifi">信号最强的Wifi</string>
+    <string name="wifinum">扫描到的wifi数量</string>
+    <string name="notfindwifi">未搜索到任何wifi设备</string>
+    <string name="bluetoothtitle">蓝牙</string>
+    <string name="bluetoothstateon">蓝牙已打开</string>
+    <string name="bluetoothscan">正在搜索...</string>
+    <string name="bluetoothstateturnon">蓝牙正在启动...</string>
+    <string name="bluetoothstateturnoff">蓝牙正在关闭...</string>
+    <string name="notfindbluetooth">未搜索到蓝牙设备</string>
+</resources>
