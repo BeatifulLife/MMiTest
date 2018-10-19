@@ -1,10 +1,13 @@
 package com.example.xu.mmitest;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -12,29 +15,47 @@ public class Gsensor implements SensorEventListener {
     private SensorManager mSensorManager;
     private Sensor mGsensor;
     private TextView mTextView;
-    private Context mContext;
+    private Activity mActivity;
     private String tips = new String();
+    private boolean isReges = false;
+    private Object obj = new Object();
 
-    public  Gsensor(Context context,TextView textView){
-        mContext = context;
-        mTextView = textView;
+    public  Gsensor(Activity activity){
+        mActivity = activity;
+        mTextView = activity.findViewById(R.id.gsensortips);
     }
 
     private void init(){
-        mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
         mGsensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(this,mGsensor,SensorManager.SENSOR_DELAY_NORMAL);
+        if (mGsensor!=null) {
+            mSensorManager.registerListener(this, mGsensor, SensorManager.SENSOR_DELAY_NORMAL);
+            isReges = true;
+            mTextView.setTextColor(Color.GREEN);
+        }else{
+            mTextView.setTextColor(Color.RED);
+            mTextView.setText(R.string.nogsensor);
+        }
     }
 
     public void startGsensor(){
-        init();
+        synchronized (obj) {
+            init();
+        }
     }
 
     public void stopGsensor(){
-        mSensorManager.unregisterListener(this);
+        synchronized (obj) {
+            if (mGsensor != null && isReges) {
+                isReges = false;
+                mSensorManager.unregisterListener(this);
+            }
+        }
     }
 
-    private android.os.Handler handler = new android.os.Handler();
+    public void Invisible(){
+        mActivity.findViewById(R.id.gsensoritem).setVisibility(View.GONE);
+    }
 
     @Override
     public void onSensorChanged(SensorEvent event) {

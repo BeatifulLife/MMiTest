@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -71,7 +70,7 @@ public class KeyView extends LinearLayout {
     }
 
     public boolean isKeyTestPass(){
-        if (isHasPass) return true;
+        if (isHasPass) {return true;}
         for (int i=0;i<keymap.length;i++){
             if(!keymap[i].pressed){
                 return false;

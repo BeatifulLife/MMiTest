@@ -1,5 +1,6 @@
 package com.example.xu.mmitest;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -11,14 +12,19 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author xuzhaoyou
+ * @date 2018/10/19
+ */
 public class Bluetooth {
     private TextView mTextView;
-    private Context mContext;
+    private Activity mActivity;
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
     private int mBlueState;
@@ -28,11 +34,11 @@ public class Bluetooth {
     private boolean isBluetoothReges = false;
     private boolean isHasTest = false;
 
-    public Bluetooth(Context mContext,TextView mTextView) {
-        this.mTextView = mTextView;
-        this.mContext = mContext;
-        mResources= mContext.getResources();
-        mBluetoothManager = (BluetoothManager) mContext.getSystemService(Context.BLUETOOTH_SERVICE);
+    public Bluetooth(Activity activity) {
+        this.mTextView = activity.findViewById(R.id.bluetoothtips);
+        this.mActivity = activity;
+        mResources= activity.getResources();
+        mBluetoothManager = (BluetoothManager) mActivity.getSystemService(Context.BLUETOOTH_SERVICE);
     }
 
     private void init(){
@@ -48,7 +54,7 @@ public class Bluetooth {
             intentFilter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
             intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
             intentFilter.addAction(BluetoothDevice.ACTION_FOUND);
-            mContext.registerReceiver(bluetoothReceiver,intentFilter);
+            mActivity.registerReceiver(bluetoothReceiver,intentFilter);
             isBluetoothReges = true;
             mBluetoothAdapter.startDiscovery();
             /*
@@ -64,7 +70,7 @@ public class Bluetooth {
             @Override
             public void run() {
                 synchronized (obj) {
-                    if (isHasTest) return;
+                    if (isHasTest) {return;}
                     init();
                 }
             }
@@ -75,7 +81,7 @@ public class Bluetooth {
     public void stopBluetooth(){
         synchronized (obj) {
             if (isBluetoothReges) {
-                mContext.unregisterReceiver(bluetoothReceiver);
+                mActivity.unregisterReceiver(bluetoothReceiver);
                 isBluetoothReges = false;
                 /*
                 if (mBluetoothAdapter.isEnabled()) {
@@ -83,6 +89,10 @@ public class Bluetooth {
                 }*/
             }
         }
+    }
+
+    public void inVisible(){
+        mActivity.findViewById(R.id.bluetoothitem).setVisibility(View.GONE);
     }
 
     BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
@@ -128,8 +138,16 @@ public class Bluetooth {
                     mTextView.setTextColor(Color.RED);
                     mTextView.setText(mResources.getString(R.string.notfindbluetooth));
                 }
-                isHasTest = true;
-                stopBluetooth();
+
+                if (devicenum==0){
+                    SystemClock.sleep(5000);
+                    if (isBluetoothReges) {
+                        mBluetoothAdapter.startDiscovery();
+                    }
+                }else {
+                    isHasTest = true;
+                    stopBluetooth();
+                }
             }
         }
     };

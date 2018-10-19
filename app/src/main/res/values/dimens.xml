@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="wavewidth">200dp</dimen>
+    <dimen name="waveheight">30dp</dimen>
+    <dimen name="itemTitleSize">20sp</dimen>
+    <dimen name="itemTipsSize">20sp</dimen>
+    <dimen name="itemBtnTextSize">20sp</dimen>
+</resources>

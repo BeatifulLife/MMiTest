@@ -1,5 +1,6 @@
 package com.example.xu.mmitest;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,11 +24,13 @@ public class Wifi {
     private boolean isWifiReges = false;
     private Object obj = new Object();
     private boolean isHasTest = false;
+    private int level = -200;
+    private int count = 0;
 
 
-    public Wifi(Context mContext, TextView mTextView) {
-        this.mContext = mContext;
-        this.mTextView = mTextView;
+    public Wifi(Activity activity) {
+        this.mContext = activity;
+        this.mTextView = activity.findViewById(R.id.wifitips);
         mResource = mContext.getResources();
     }
 
@@ -43,9 +46,10 @@ public class Wifi {
         filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         mContext.registerReceiver(wifiReceiver,filter);
         isWifiReges = true;
-        //mWifiManager.startScan();
+        mWifiManager.startScan();
+        mTextView.setTextColor(Color.YELLOW);
         mTextView.setText(R.string.wifiscan);
-        updateText();
+
     }
 
     private Handler myHandler = new Handler();
@@ -54,7 +58,7 @@ public class Wifi {
             @Override
             public void run() {
                 synchronized (obj) {
-                    if (isHasTest) return;
+                    if (isHasTest) {return;}
                     init();
                 }
             }
@@ -66,11 +70,6 @@ public class Wifi {
             if (isWifiReges) {
                 mContext.unregisterReceiver(wifiReceiver);
                 isWifiReges = false;
-                /*
-                if(mWifiManager.isWifiEnabled()){
-                    mWifiManager.setWifiEnabled(false);
-                }
-                */
             }
         }
     }
@@ -78,10 +77,19 @@ public class Wifi {
     BroadcastReceiver wifiReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.endsWith(intent.getAction())){
+            if(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(intent.getAction())){
                 updateText();
-                isHasTest = true;
-                stopWifi();
+                /*
+                if (level>=-55) {
+                    isHasTest = true;
+                    stopWifi();
+                }else{
+                    mWifiManager.startScan();
+                }
+                */
+                if (count==0) {
+                    mWifiManager.startScan();
+                }
             }
         }
     };
@@ -89,32 +97,35 @@ public class Wifi {
     private void updateText(){
         List<ScanResult> wifiList = mWifiManager.getScanResults();
         String wifiText = "";
-        int count = 0;
-        int level = -200;
         String ssid = "";
+        count = 0;
+        int temleavel = -200;
         if (wifiList!=null){
             for(ScanResult result:wifiList){
                 count++;
-                if (result.level>level){
-                    level = result.level;
+                if (result.level>temleavel){
+                    temleavel = result.level;
                     ssid = result.SSID;
                 }
             }
         }
-        if (count>0) {
+        level = temleavel;
 
+        if (count>0) {
+            if (level>=-55){
+                mTextView.setTextColor(Color.GREEN);
+            }else{
+                mTextView.setTextColor(Color.GRAY);
+            }
             wifiText = String.format(" %s:%d %s:%s（%d）",
                     mResource.getString(R.string.wifinum), count,
                     mResource.getString(R.string.maxlevelwifi), ssid,
                     level);
         }else{
+            mTextView.setTextColor(Color.RED);
             wifiText = mResource.getString(R.string.notfindwifi);
         }
-        if (level>=-55){
-            mTextView.setTextColor(Color.GREEN);
-        }else{
-            mTextView.setTextColor(Color.RED);
-        }
+
         mTextView.setText(wifiText);
     }
 

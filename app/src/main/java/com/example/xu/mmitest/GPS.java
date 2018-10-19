@@ -2,6 +2,7 @@ package com.example.xu.mmitest;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -16,6 +17,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Iterator;
@@ -23,7 +25,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class GPS implements LocationListener {
-    private Context mContext;
+    private Activity mActivity;
     private LocationManager mLocationManager;
     private Double mLongitude;
     private Double mLatitude;
@@ -38,19 +40,20 @@ public class GPS implements LocationListener {
     private Object obj= new Object();
     private boolean isHasTest = false;
 
-    public GPS(Context context, TextView mTipsTextView) {
-        this.mContext = context;
-        mTextView = mTipsTextView;
-        mResource = context.getResources();
+    public GPS(Activity activity) {
+        this.mActivity = activity;
+        mTextView = activity.findViewById(R.id.gpstips);;
+        mResource = activity.getResources();
     }
 
 
     private void init() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(mActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         myGpsStatus = new MyGpsStatus();
-        mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         mGpsStatus= mLocationManager.getGpsStatus(null);
         try {
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
@@ -67,7 +70,7 @@ public class GPS implements LocationListener {
             @Override
             public void run() {
                 synchronized (obj) {
-                    if (isHasTest)return;
+                    if (isHasTest){return;}
                     init();
                 };
             }
@@ -82,6 +85,10 @@ public class GPS implements LocationListener {
                 mLocationManager.removeGpsStatusListener(myGpsStatus);
             }
         }
+    }
+
+    public void InVisible(){
+        mActivity.findViewById(R.id.gpsitem).setVisibility(View.GONE);
     }
 
     @Override
@@ -120,7 +127,7 @@ public class GPS implements LocationListener {
 
         @Override
         public void onGpsStatusChanged(int event) {
-            Log.i("MYTEST","test");
+            //Log.i("MYTEST","test");
             updateText();
         }
     }
@@ -128,7 +135,7 @@ public class GPS implements LocationListener {
     @SuppressLint("MissingPermission")
     private void updateText(){
         mCounter++;
-        if(mLocationManager==null)return;
+        if(mLocationManager==null){return;}
         mGpsStatus = mLocationManager.getGpsStatus(null);
 
         Iterator<GpsSatellite> it = mGpsStatus.getSatellites().iterator();
@@ -153,14 +160,14 @@ public class GPS implements LocationListener {
             mCount++;
         }
         String tips="";
-        if (mCounter>=60){
+        if (mCounter>=59){
             isHasTest = true;
             stopGps();
         }
 
         if (mCount>0) {
             mTextView.setTextColor(Color.GREEN);
-            if (mCounter>=60){
+            if (mCounter>=59){
                 tips = String.format(" %s%d PRN:%s SNR:%s", mResource.getString(R.string.satellitecount),mCount,
                         SatellitesPRNs,
                         SatellitesSNRs);
@@ -171,7 +178,11 @@ public class GPS implements LocationListener {
             }
         }else{
             mTextView.setTextColor(Color.RED);
-            tips = String.format(" (%d)",mCounter);
+            if (mCounter>=59){
+                tips = mResource.getString(R.string.notfindsatellite);
+            }else {
+                tips = String.format(" (%d)", mCounter);
+            }
         }
         mTextView.setText(tips);
     }
