@@ -73,7 +73,12 @@ public class Vibrator implements View.OnClickListener {
     }
 
     public void stopVibrator(){
+
         synchronized (obj) {
+            if (schedule!=null){
+                schedule.shutdown();
+                schedule = null;
+            }
             if (isStartVib) {
                 isStartVib = false;
                 mVibrator.cancel();
@@ -97,7 +102,7 @@ public class Vibrator implements View.OnClickListener {
         stopVibrator();
     }
 
-    public void Invisible(){
+    public void inVisible(){
         mActivity.findViewById(R.id.vibratoritem).setVisibility(View.GONE);
     }
 

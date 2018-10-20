@@ -15,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ALL_PERMISSION = 1;
     private FeatureSupport mFeatureSupport;
+    private boolean isStartTest = false;
+    Object obj = new Object();
     private KeyView mKeyView;
     private Gsensor mGsnesor;
     private GPS mGps;
@@ -23,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Vibrator mVibrator;
     private Mic mMic;
     private FlashLight mFlashLight;
-    private boolean isStartTest = false;
-    Object obj = new Object();
+    private LightSensor mLightsensor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,9 +40,8 @@ public class MainActivity extends AppCompatActivity {
         mBluetooth = new Bluetooth(this);
         mVibrator = new Vibrator(this);
         mFlashLight = new FlashLight(this);
+        mLightsensor = new LightSensor(this);
         requestAllPermission();
-
-        //new FeatureSupport(this).isSupportMainMic();
     }
 
 
@@ -64,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
             }
+            doTestAll();
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         }
     }
 
@@ -73,91 +76,103 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        doTestAll();
+
     }
 
 
     private void doTestAll(){
 
+        synchronized (obj) {
+            new Runnable() {
+                @Override
+                public void run() {
+                    if (isStartTest) {return;}
+                    if (mFeatureSupport.isSupportGsensor()) {
+                        mGsnesor.startGsensor();
+                    } else {
+                        mGsnesor.inVisible();
+                    }
+                    if (mFeatureSupport.isSupportGps()) {
+                        mGps.startGps();
+                    } else {
+                        mGps.inVisible();
+                    }
+                    if (!mFeatureSupport.isSupportMainMic()) {
+                        mMic.inVisible();
+                    }
+                    if (mFeatureSupport.isSupportBluetooth()) {
+                        mBluetooth.startBluetooth();
+                    } else {
+                        mBluetooth.inVisible();
+                    }
 
-        new Runnable(){
-            @Override
-            public void run() {
+                    if (mFeatureSupport.isSupportVibrator()) {
+                        mVibrator.startVibrator();
+                    } else {
+                        mVibrator.inVisible();
+                    }
 
-                if(mFeatureSupport.isSupportGsensor()) {
-                    mGsnesor.startGsensor();
-                }else{
-                    mGsnesor.Invisible();
+                    if (mFeatureSupport.isSupportBackFlash()) {
+                        Log.i("MYTEST", "BackfFlash Support");
+                        mFlashLight.startBackFlashLight();
+                    } else {
+                        Log.i("MYTEST", "BackfFlash not Support");
+                        mFlashLight.inVisibleBackFlashLight();
+                    }
+
+                    if (mFeatureSupport.isSupportFrontFlash()) {
+                        mFlashLight.startFrontFlahgLight();
+                    } else {
+                        mFlashLight.inVisibleFrontFlashLight();
+                    }
+
+                    if (mFeatureSupport.isSupportLightSensor()) {
+                        mLightsensor.startLightSensor();
+                    } else {
+                        mLightsensor.inVisible();
+                    }
+                    mWifi.startWifi();
+
+
                 }
-                if (mFeatureSupport.isSupportGps()) {
-                    mGps.startGps();
-                }else{
-                    mGps.InVisible();
-                }
-                if (!mFeatureSupport.isSupportMainMic()){
-                    mMic.Invisible();
-                }
-                if (mFeatureSupport.isSupportBluetooth()){
-                    mBluetooth.startBluetooth();
-                }else{
-                    mBluetooth.inVisible();
-                }
-
-                if (mFeatureSupport.isSupportVibrator()){
-                    mVibrator.startVibrator();
-                }else{
-                    mVibrator.Invisible();
-                }
-
-                if (mFeatureSupport.isSupportBackFlash()){
-                    Log.i("MYTEST","BackfFlash Support");
-                    mFlashLight.startBackFlashLight();
-                }else{
-                    Log.i("MYTEST","BackfFlash not Support");
-                    mFlashLight.InvisibleBackFlashLight();
-                }
-
-                if (mFeatureSupport.isSupportFrontFlash()){
-                    mFlashLight.startFrontFlahgLight();
-                }else{
-                    mFlashLight.InvisibleFrontFlashLight();
-                }
-                mWifi.startWifi();
-
-
-
-            }
-        }.run();
+            }.run();
+        }
 
     }
 
     private void doStopAll(){
-        isStartTest = false;
-        if(mFeatureSupport.isSupportGsensor()) {
-            mGsnesor.stopGsensor();
-        }
-        if (mFeatureSupport.isSupportGps()) {
-            mGps.stopGps();
-        }
-        if (mFeatureSupport.isSupportMainMic()){
-            mMic.stopMic();
-        }
-        if (mFeatureSupport.isSupportBluetooth()){
-            mBluetooth.stopBluetooth();
-        }
+        synchronized (obj) {
+            if (!isStartTest) {return;}
+            isStartTest = false;
+            if (mFeatureSupport.isSupportGsensor()) {
+                mGsnesor.stopGsensor();
+            }
+            if (mFeatureSupport.isSupportGps()) {
+                mGps.stopGps();
+            }
+            if (mFeatureSupport.isSupportMainMic()) {
+                mMic.stopMic();
+            }
+            if (mFeatureSupport.isSupportBluetooth()) {
+                mBluetooth.stopBluetooth();
+            }
 
-        if (mFeatureSupport.isSupportVibrator()){
-            mVibrator.stopVibrator();
-        }
+            if (mFeatureSupport.isSupportVibrator()) {
+                mVibrator.stopVibrator();
+            }
 
-        if (mFeatureSupport.isSupportBackFlash()){
-            mFlashLight.stopBackFlashLight();
-        }
+            if (mFeatureSupport.isSupportBackFlash()) {
+                mFlashLight.stopBackFlashLight();
+            }
 
-        if (mFeatureSupport.isSupportFrontFlash()){
-            mFlashLight.stopFrontFlashLight();
+            if (mFeatureSupport.isSupportFrontFlash()) {
+                mFlashLight.stopFrontFlashLight();
+            }
+            if (mFeatureSupport.isSupportLightSensor()) {
+                mLightsensor.stopLightSensor();
+            }
+            mWifi.stopWifi();
         }
-        mWifi.stopWifi();
     }
 
     @Override

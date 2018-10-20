@@ -9,9 +9,11 @@ import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
+import java.util.Timer;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 public class Mic implements View.OnClickListener {
 
@@ -43,6 +45,7 @@ public class Mic implements View.OnClickListener {
         stopRecord();
     }
 
+    private android.os.Handler myHandler = new android.os.Handler();
     private void startRecord() {
         if (mediaRecorder != null) {return;}
         try {
@@ -54,13 +57,14 @@ public class Mic implements View.OnClickListener {
             mediaRecorder.prepare();
             mediaRecorder.start();
             isStart = true;
+
             mSchedule = new ScheduledThreadPoolExecutor(1);
-            mSchedule.scheduleAtFixedRate(new Runnable() {
+            mSchedule.scheduleWithFixedDelay(new Runnable() {
                 @Override
                 public void run() {
                     startGetDb();
                 }
-            },0,200,TimeUnit.MILLISECONDS);
+            },0,100,TimeUnit.MILLISECONDS);
         } catch (IOException e) {
             e.printStackTrace();
             Log.i("MYTEST", "error:" + e.getMessage());
@@ -69,6 +73,10 @@ public class Mic implements View.OnClickListener {
     }
 
     private void stopRecord() {
+        if (mSchedule!=null){
+            mSchedule.shutdown();
+            mSchedule = null;
+        }
         if (mediaRecorder != null) {
             stopGetDb();
             mediaRecorder.stop();
@@ -82,17 +90,20 @@ public class Mic implements View.OnClickListener {
             if (isStart) {
                 for (int i = 0; i < waveform.length; i++) {
                     waveform[i] = mediaRecorder.getMaxAmplitude();
-
-                    //Log.i("MYTEST","waveform["+i+"]="+waveform[i]);
-
                     try {
-                        Thread.sleep(5);
+                        Thread.sleep(10);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                maveView.setWave(waveform);
-            }
+                myHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        maveView.setWave(waveform);
+                    }
+                });
+
+           }
         }
     }
 
@@ -144,7 +155,7 @@ public class Mic implements View.OnClickListener {
         }
     }
 
-    public void Invisible(){
+    public void inVisible(){
         mActivity.findViewById(R.id.micitem).setVisibility(View.GONE);
     }
 }

@@ -38,6 +38,7 @@ public class FlashLight implements View.OnClickListener {
         this.mActivity = activity;
         mResource = activity.getResources();
         this.mBackTextView = mActivity.findViewById(R.id.backflashlighttips);
+        mBackTextView.setTextColor(Color.YELLOW);
         this.mBackLinearlayout = mActivity.findViewById(R.id.backflashlightbtnline);
         this.backfailBtn = mActivity.findViewById(R.id.backflashlightfailbtn);
         this.backpassBtn = mActivity.findViewById(R.id.backflashlightpassbtn);
@@ -45,6 +46,7 @@ public class FlashLight implements View.OnClickListener {
         this.backpassBtn.setOnClickListener(this);
 
         this.mFrontTextView = mActivity.findViewById(R.id.frontflashlighttips);
+        mFrontTextView.setTextColor(Color.YELLOW);
         this.mFrontLinearlayout = mActivity.findViewById(R.id.frontflashlightbtnline);
         this.frontfailBtn = mActivity.findViewById(R.id.frontflashlightfailbtn);
         this.frontpassBtn = mActivity.findViewById(R.id.frontflashlightpassbtn);
@@ -136,11 +138,11 @@ public class FlashLight implements View.OnClickListener {
 
     }
 
-    public void InvisibleBackFlashLight(){
+    public void inVisibleBackFlashLight(){
         mActivity.findViewById(R.id.backflashlightitem).setVisibility(View.GONE);
     }
 
-    public void InvisibleFrontFlashLight(){
+    public void inVisibleFrontFlashLight(){
         mActivity.findViewById(R.id.frontflashlightitem).setVisibility(View.GONE);
     }
 }

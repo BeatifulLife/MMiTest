@@ -57,10 +57,9 @@ public class Bluetooth {
             mActivity.registerReceiver(bluetoothReceiver,intentFilter);
             isBluetoothReges = true;
             mBluetoothAdapter.startDiscovery();
-            /*
             mTextView.setTextColor(Color.YELLOW);
             mTextView.setText(R.string.bluetoothscan);
-            */
+
         }
     }
 

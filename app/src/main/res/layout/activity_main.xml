@@ -275,4 +275,24 @@
 
     </LinearLayout>
 
+
+    <!--光感-->
+    <LinearLayout
+        android:id="@+id/lightsensoritem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/itemTitleSize"
+            android:text="@string/lightsensortitle"/>
+
+        <TextView
+            android:id="@+id/lightsensortips"
+            android:textSize="@dimen/itemTipsSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>

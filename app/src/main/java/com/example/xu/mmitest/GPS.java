@@ -14,7 +14,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +22,9 @@ import android.widget.TextView;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GPS implements LocationListener {
     private Activity mActivity;
@@ -33,6 +35,7 @@ public class GPS implements LocationListener {
     private int mCounter;
     private TextView mTextView;
     private android.location.GpsStatus mGpsStatus;
+    private ScheduledExecutorService mSchedul;
     private Resources mResource;
     private MyGpsStatus myGpsStatus;
     private boolean mPRN1Found = false;
@@ -58,6 +61,13 @@ public class GPS implements LocationListener {
         try {
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, this);
             mLocationManager.addGpsStatusListener(myGpsStatus);
+            mSchedul = new ScheduledThreadPoolExecutor(1);
+            mSchedul.scheduleAtFixedRate(new Runnable() {
+                @Override
+                public void run() {
+                    updateText();
+                }
+            },0,1000,TimeUnit.MILLISECONDS);
             isGpsReges = true;
         }catch (Exception e){
             Log.i("MYTEST","Error:"+e.getMessage());
@@ -66,19 +76,18 @@ public class GPS implements LocationListener {
 
     private Handler myHandler = new Handler();
     public void startGps(){
-        myHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (obj) {
-                    if (isHasTest){return;}
-                    init();
-                };
-            }
-        });
+        synchronized (obj) {
+            if (isHasTest){return;}
+            init();
+        };
     }
 
     public void stopGps(){
         synchronized (obj) {
+            if (mSchedul!=null){
+                mSchedul.shutdown();
+                mSchedul=null;
+            }
             if(isGpsReges) {
                 isGpsReges = false;
                 mLocationManager.removeUpdates(this);
@@ -87,7 +96,7 @@ public class GPS implements LocationListener {
         }
     }
 
-    public void InVisible(){
+    public void inVisible(){
         mActivity.findViewById(R.id.gpsitem).setVisibility(View.GONE);
     }
 
@@ -128,7 +137,7 @@ public class GPS implements LocationListener {
         @Override
         public void onGpsStatusChanged(int event) {
             //Log.i("MYTEST","test");
-            updateText();
+            //updateText();
         }
     }
 
@@ -160,19 +169,19 @@ public class GPS implements LocationListener {
             mCount++;
         }
         String tips="";
-        if (mCounter>=59){
+        if (mCounter>=60){
             isHasTest = true;
             stopGps();
         }
 
         if (mCount>0) {
             mTextView.setTextColor(Color.GREEN);
-            if (mCounter>=59){
-                tips = String.format(" %s%d PRN:%s SNR:%s", mResource.getString(R.string.satellitecount),mCount,
+            if (mCounter>=60){
+                tips = String.format("%s%d PRN:%s SNR:%s", mResource.getString(R.string.satellitecount),mCount,
                         SatellitesPRNs,
                         SatellitesSNRs);
             }else {
-                tips = String.format(" (%d)%s%d PRN:%s SNR:%s", mCounter, mResource.getString(R.string.satellitecount), mCount,
+                tips = String.format("(%d)%s%d PRN:%s SNR:%s", mCounter, mResource.getString(R.string.satellitecount), mCount,
                         SatellitesPRNs,
                         SatellitesSNRs);
             }
@@ -181,10 +190,17 @@ public class GPS implements LocationListener {
             if (mCounter>=59){
                 tips = mResource.getString(R.string.notfindsatellite);
             }else {
-                tips = String.format(" (%d)", mCounter);
+                tips = String.format("(%d)", mCounter);
             }
         }
-        mTextView.setText(tips);
+        final String text = tips;
+        myHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mTextView.setText(text);
+            }
+        });
+
     }
 
 }

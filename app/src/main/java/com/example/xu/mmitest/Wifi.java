@@ -117,7 +117,7 @@ public class Wifi {
             }else{
                 mTextView.setTextColor(Color.GRAY);
             }
-            wifiText = String.format(" %s:%d %s:%s（%d）",
+            wifiText = String.format("%s:%d %s:%s（%d）",
                     mResource.getString(R.string.wifinum), count,
                     mResource.getString(R.string.maxlevelwifi), ssid,
                     level);

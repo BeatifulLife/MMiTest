@@ -53,7 +53,7 @@ public class Gsensor implements SensorEventListener {
         }
     }
 
-    public void Invisible(){
+    public void inVisible(){
         mActivity.findViewById(R.id.gsensoritem).setVisibility(View.GONE);
     }
 

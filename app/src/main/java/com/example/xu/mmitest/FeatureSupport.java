@@ -9,12 +9,9 @@ import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.location.LocationManager;
-import android.location.LocationProvider;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
-import android.net.wifi.WifiManager;
 import android.os.Vibrator;
-import android.util.Log;
 
 /**
  * @author xuzhaoyou
@@ -136,11 +133,6 @@ public class FeatureSupport {
         AudioManager audioManager = (AudioManager) mActivity.getSystemService(Context.AUDIO_SERVICE);
         AudioDeviceInfo[]audioDeviceInfos = audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS);
         for (AudioDeviceInfo audioDeviceInfo: audioDeviceInfos){
-            /*
-            Log.i("MYTEST","Type:"+audioDeviceInfo.getType()+",Address:"+audioDeviceInfo.getAddress()+
-            ",Name:"+audioDeviceInfo.getProductName()+",Id"+audioDeviceInfo.getId());
-            */
-
             if (AudioDeviceInfo.TYPE_BUILTIN_MIC == audioDeviceInfo.getType()){
                 return true;
             }
@@ -148,5 +140,22 @@ public class FeatureSupport {
         return false;
     }
 
+    public boolean isSupportLightSensor(){
+        SensorManager sensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager!=null && sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)!=null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isSupportProximitySensor(){
+        SensorManager sensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
+        if (sensorManager!=null && sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)!=null){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 }
