@@ -19,7 +19,7 @@ public class FlashLight implements View.OnClickListener {
 
     private MainActivity mActivity;
     private Resources mResource;
-    private TextView mBackTextView;
+    private static TextView mBackTextView;
     private Button backpassBtn;
     private Button backfailBtn;
     private LinearLayout mBackLinearlayout;
@@ -29,15 +29,15 @@ public class FlashLight implements View.OnClickListener {
     private Button frontfailBtn;
     private LinearLayout mFrontLinearlayout;
     private CameraManager mCameramanager;
-    private boolean isbackflashlightTest = false;
-    private boolean isfrontflashlightTest = false;
+    private static boolean isbackflashlightTest = false;
+    private static boolean isfrontflashlightTest = false;
     private ScheduledExecutorService backScheduled;
     private ScheduledExecutorService frontScheduled;
 
     public FlashLight(MainActivity activity) {
         this.mActivity = activity;
         mResource = activity.getResources();
-        this.mBackTextView = mActivity.findViewById(R.id.backflashlighttips);
+        mBackTextView = mActivity.findViewById(R.id.backflashlighttips);
         mBackTextView.setTextColor(Color.YELLOW);
         this.mBackLinearlayout = mActivity.findViewById(R.id.backflashlightbtnline);
         this.backfailBtn = mActivity.findViewById(R.id.backflashlightfailbtn);
@@ -45,7 +45,7 @@ public class FlashLight implements View.OnClickListener {
         this.backfailBtn.setOnClickListener(this);
         this.backpassBtn.setOnClickListener(this);
 
-        this.mFrontTextView = mActivity.findViewById(R.id.frontflashlighttips);
+        mFrontTextView = mActivity.findViewById(R.id.frontflashlighttips);
         mFrontTextView.setTextColor(Color.YELLOW);
         this.mFrontLinearlayout = mActivity.findViewById(R.id.frontflashlightbtnline);
         this.frontfailBtn = mActivity.findViewById(R.id.frontflashlightfailbtn);
@@ -71,7 +71,7 @@ public class FlashLight implements View.OnClickListener {
                 }
 
             }
-        },0,200,TimeUnit.MILLISECONDS);
+        },500,200,TimeUnit.MILLISECONDS);
     }
 
     public void stopBackFlashLight(){

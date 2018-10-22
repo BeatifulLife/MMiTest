@@ -21,7 +21,7 @@ public class Wifi {
     private TextView mTextView;
     private WifiManager mWifiManager;
     private Resources mResource;
-    private boolean isWifiReges = false;
+    private static boolean isWifiReges = false;
     private Object obj = new Object();
     private boolean isHasTest = false;
     private int level = -200;
@@ -35,6 +35,7 @@ public class Wifi {
     }
 
     private void init(){
+        if (isWifiReges){return;}
         mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         if(!mWifiManager.isWifiEnabled()){
             mWifiManager.setWifiEnabled(true);
@@ -52,17 +53,11 @@ public class Wifi {
 
     }
 
-    private Handler myHandler = new Handler();
     public void startWifi(){
-        myHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (obj) {
-                    if (isHasTest) {return;}
-                    init();
-                }
+            synchronized (obj) {
+                if (isHasTest) {return;}
+                init();
             }
-        });
     }
 
     public void stopWifi(){
@@ -95,7 +90,7 @@ public class Wifi {
     };
 
     private void updateText(){
-        List<ScanResult> wifiList = mWifiManager.getScanResults();
+        List<ScanResult> wifiList = mWifiManager.getScanResults(); //未打开定位功能无法获取结果?
         String wifiText = "";
         String ssid = "";
         count = 0;

@@ -29,7 +29,7 @@ public class Vibrator implements View.OnClickListener {
     private Button passBtn;
     private Button failBtn;
     private LinearLayout mLinearLayout;
-    private boolean isVibTest = false;
+    private static boolean isVibTest = false;
     public Vibrator(Activity activity){
         mActivity = activity;
         mTextView = activity.findViewById(R.id.vibratortips);

@@ -19,6 +19,7 @@ import android.os.Vibrator;
  */
 public class FeatureSupport {
 
+    private final boolean HAS_LED = true;
     private Activity mActivity;
     private String backCamereId;
     private String frontCameraId;
@@ -156,6 +157,10 @@ public class FeatureSupport {
         }else{
             return false;
         }
+    }
+
+    public boolean isSupportLed(){
+        return HAS_LED;
     }
 
 }

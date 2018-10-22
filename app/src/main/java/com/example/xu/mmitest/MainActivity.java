@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private Mic mMic;
     private FlashLight mFlashLight;
     private LightSensor mLightsensor;
+    private LED mLed;
+    private LcdBrightness mLcd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         mVibrator = new Vibrator(this);
         mFlashLight = new FlashLight(this);
         mLightsensor = new LightSensor(this);
+        mLed = new LED(this);
+        mLcd = new LcdBrightness(this);
+        Log.i("MYTEST","Oncreate");
         requestAllPermission();
     }
 
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if (isStartTest) {return;}
+
                     if (mFeatureSupport.isSupportGsensor()) {
                         mGsnesor.startGsensor();
                     } else {
@@ -126,13 +132,20 @@ public class MainActivity extends AppCompatActivity {
                         mFlashLight.inVisibleFrontFlashLight();
                     }
 
+
                     if (mFeatureSupport.isSupportLightSensor()) {
                         mLightsensor.startLightSensor();
                     } else {
                         mLightsensor.inVisible();
                     }
-                    mWifi.startWifi();
 
+                    if (mFeatureSupport.isSupportLed()){
+                        mLed.startLed();
+                    }else{
+                        mLed.inVisible();
+                    }
+                    mWifi.startWifi();
+                    mLcd.statLcdBrightness();
 
                 }
             }.run();
@@ -168,10 +181,16 @@ public class MainActivity extends AppCompatActivity {
             if (mFeatureSupport.isSupportFrontFlash()) {
                 mFlashLight.stopFrontFlashLight();
             }
+
             if (mFeatureSupport.isSupportLightSensor()) {
                 mLightsensor.stopLightSensor();
             }
+
+            if (mFeatureSupport.isSupportLed()){
+                mLed.stopLed();
+            }
             mWifi.stopWifi();
+            mLcd.stopLcdBrightness();
         }
     }
 

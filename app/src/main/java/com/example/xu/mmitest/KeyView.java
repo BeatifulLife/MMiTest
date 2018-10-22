@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 public class KeyView extends LinearLayout {
 
 
-    private boolean isHasPass = false;
+    private static boolean isHasPass = false;
 
     private  KeyMap[] keymap = {
       new KeyMap(R.string.volup,KeyEvent.KEYCODE_VOLUME_UP,false),

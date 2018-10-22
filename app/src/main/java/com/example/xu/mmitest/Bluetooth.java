@@ -32,7 +32,7 @@ public class Bluetooth {
     private Map<String,String> map = new HashMap<String,String>();
     private Object obj = new Object();
     private boolean isBluetoothReges = false;
-    private boolean isHasTest = false;
+    private static boolean isHasTest = false;
 
     public Bluetooth(Activity activity) {
         this.mTextView = activity.findViewById(R.id.bluetoothtips);

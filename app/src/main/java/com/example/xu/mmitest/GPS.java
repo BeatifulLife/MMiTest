@@ -41,7 +41,7 @@ public class GPS implements LocationListener {
     private boolean mPRN1Found = false;
     private boolean isGpsReges = false;
     private Object obj= new Object();
-    private boolean isHasTest = false;
+    private static boolean isHasTest = false;
 
     public GPS(Activity activity) {
         this.mActivity = activity;

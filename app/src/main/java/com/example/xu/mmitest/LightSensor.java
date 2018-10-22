@@ -19,7 +19,7 @@ public class LightSensor implements SensorEventListener {
 
     private Activity mActivity;
     private TextView mTextview;
-    private boolean isLightSensorTest = false;
+    private static boolean isLightSensorTest = false;
     private SensorManager mLightSensor;
     private LinearLayout mLinearLayout;
     public LightSensor(Activity activity){

@@ -35,4 +35,8 @@
     <string name="fail">失败</string>
     <string name="lightsensortitle">光感应传感&#160;</string>
     <string name="lightsensornodata">光感应传感无数据</string>
+    <string name="led">指示灯&#160;</string>
+    <string name="ledtips">请确认指示灯是否正在闪烁？</string>
+    <string name="lcd">背光等级&#160;</string>
+    <string name="lcdtips">请确认屏幕背光是否正在闪？</string>
 </resources>
