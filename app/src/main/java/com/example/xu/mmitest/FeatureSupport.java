@@ -12,6 +12,8 @@ import android.location.LocationManager;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.os.Vibrator;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 /**
  * @author xuzhaoyou
@@ -20,6 +22,8 @@ import android.os.Vibrator;
 public class FeatureSupport {
 
     private final boolean HAS_LED = true;
+    private final boolean HAS_RECEIVER = true;
+    private final boolean HAS_HEADSET = true;
     private Activity mActivity;
     private String backCamereId;
     private String frontCameraId;
@@ -163,4 +167,7 @@ public class FeatureSupport {
         return HAS_LED;
     }
 
+    public boolean isSupportReceiver(){ return HAS_RECEIVER; }
+
+    public boolean isSupportHeadset(){ return  HAS_HEADSET; }
 }

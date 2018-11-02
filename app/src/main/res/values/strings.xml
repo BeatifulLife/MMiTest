@@ -35,8 +35,21 @@
     <string name="fail">失败</string>
     <string name="lightsensortitle">光感应传感&#160;</string>
     <string name="lightsensornodata">光感应传感无数据</string>
+    <string name="proximitysensortitle">近距离传感&#160;</string>
+    <string name="proximitysensornodata">近距离传感无数据</string>
     <string name="led">指示灯&#160;</string>
     <string name="ledtips">请确认指示灯是否正在闪烁？</string>
     <string name="lcd">背光等级&#160;</string>
     <string name="lcdtips">请确认屏幕背光是否正在闪？</string>
+    <string name="receiver">听筒</string>
+    <string name="receivertips">请确认听筒是否有声音?</string>
+    <string name="speakertips">请确认扬声器是否有声音?</string>
+    <string name="headsettiltle">耳机&#160;</string>
+    <string name="headsetplus">耳机已插入！</string>
+    <string name="headsetnoplus">耳机未插入！</string>
+    <string name="fmtips">正在搜索电台...</string>
+    <string name="fmnostart">请插入耳机,然后搜索电台.</string>
+    <string name="fmtitle">FM</string>
+    <string name="fmsearch">搜索</string>
+    <string name="fmnoradio">未搜索到电台</string>
 </resources>

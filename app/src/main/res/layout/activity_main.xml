@@ -295,6 +295,24 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+    <!--近距离-->
+    <LinearLayout
+        android:id="@+id/proximitysensoritem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/itemTitleSize"
+            android:text="@string/proximitysensortitle"/>
+
+        <TextView
+            android:id="@+id/proximitysensortips"
+            android:textSize="@dimen/itemTipsSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <!--指示灯-->
     <LinearLayout
@@ -351,6 +369,61 @@
 
     </LinearLayout>
 
+    <!--听筒-->
+    <LinearLayout
+        android:id="@+id/receiveritem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/receiver"
+                android:textSize="@dimen/itemTitleSize" />
+
+            <TextView
+                android:id="@+id/receivertips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/receivertips"
+                android:textSize="@dimen/itemTipsSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/receiverbtnline"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/receiverpassbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:background="@color/passbuttoncolor"
+                    android:text="@string/pass" />
+
+                <Button
+                    android:id="@+id/receiverfailbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/failbuttoncolor"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:text="@string/fail" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
     <!--背光-->
     <LinearLayout
         android:id="@+id/lcditem"
@@ -396,6 +469,140 @@
 
                 <Button
                     android:id="@+id/lcdfailbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/failbuttoncolor"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:text="@string/fail" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--扬声器-->
+    <LinearLayout
+        android:id="@+id/speakeritem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lcd"
+                android:textSize="@dimen/itemTitleSize" />
+
+            <TextView
+                android:id="@+id/speakertips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/speakertips"
+                android:textSize="@dimen/itemTipsSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/speakerbtnline"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/speakerpassbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:background="@color/passbuttoncolor"
+                    android:text="@string/pass" />
+
+                <Button
+                    android:id="@+id/speakerfailbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/failbuttoncolor"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:text="@string/fail" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--耳机-->
+    <LinearLayout
+        android:id="@+id/headsetitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/itemTitleSize"
+            android:text="@string/headsettiltle"/>
+
+        <TextView
+            android:id="@+id/headsettips"
+            android:textSize="@dimen/itemTipsSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!--收音机-->
+    <LinearLayout
+        android:id="@+id/fmitem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fmtitle"
+                android:textSize="@dimen/itemTitleSize" />
+            <Button
+                android:id="@+id/fmsearchbtn"
+                android:text="@string/fmsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/fmtips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fmnostart"
+                android:textSize="@dimen/itemTipsSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fmbtnline"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/fmpassbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:background="@color/passbuttoncolor"
+                    android:text="@string/pass" />
+
+                <Button
+                    android:id="@+id/fmfailbtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/failbuttoncolor"

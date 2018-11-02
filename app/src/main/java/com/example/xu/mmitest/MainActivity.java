@@ -10,7 +10,6 @@ import android.view.KeyEvent;
 import android.widget.Toast;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_ALL_PERMISSION = 1;
@@ -28,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private LightSensor mLightsensor;
     private LED mLed;
     private LcdBrightness mLcd;
+    private Receiver mReceiver;
+    private Speaker mSpeaker;
+    private Headset mHeadset;
+    private ProximitySensor mProximitySensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
         mLightsensor = new LightSensor(this);
         mLed = new LED(this);
         mLcd = new LcdBrightness(this);
-        Log.i("MYTEST","Oncreate");
+        mReceiver = new Receiver(this);
+        mSpeaker = new Speaker(this);
+        mHeadset = new Headset(this);
+        mProximitySensor = new ProximitySensor(this);
         requestAllPermission();
     }
 
@@ -144,8 +150,27 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         mLed.inVisible();
                     }
+
+                    if (mFeatureSupport.isSupportReceiver()) {
+                        mReceiver.startReceiver();
+                    }else{
+                        mReceiver.inVisible();
+                    }
+
+                    if (mFeatureSupport.isSupportHeadset()){
+                        mHeadset.startHeadset();
+                    }else{
+                        mHeadset.inVisible();
+                    }
+
+                    if (mFeatureSupport.isSupportProximitySensor()){
+                        mProximitySensor.startProxumitySensor();
+                    }else{
+                        mProximitySensor.inVisible();
+                    }
                     mWifi.startWifi();
                     mLcd.statLcdBrightness();
+                    mSpeaker.startSpeaker();
 
                 }
             }.run();
@@ -157,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         synchronized (obj) {
             if (!isStartTest) {return;}
             isStartTest = false;
+
             if (mFeatureSupport.isSupportGsensor()) {
                 mGsnesor.stopGsensor();
             }
@@ -189,8 +215,22 @@ public class MainActivity extends AppCompatActivity {
             if (mFeatureSupport.isSupportLed()){
                 mLed.stopLed();
             }
+
+            if (mFeatureSupport.isSupportReceiver()) {
+                mReceiver.stopReceiver();
+            }
+
+            if (mFeatureSupport.isSupportHeadset()){
+                mHeadset.stopHeadset();
+            }
+
+            if(mFeatureSupport.isSupportProximitySensor()){
+                mProximitySensor.stopProxumitySensor();
+            }
             mWifi.stopWifi();
             mLcd.stopLcdBrightness();
+            mSpeaker.stopSpeaker();
+
         }
     }
 
