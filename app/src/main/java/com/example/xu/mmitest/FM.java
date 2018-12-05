@@ -53,6 +53,7 @@ public class FM implements View.OnClickListener {
         passBtn.setOnClickListener(this);
         failBtn.setOnClickListener(this);
         mAudioManager = (AudioManager) mActicity.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
     }
 
     private BroadcastReceiver headsetReceiver = new BroadcastReceiver() {
@@ -83,7 +84,6 @@ public class FM implements View.OnClickListener {
                 mActicity.registerReceiver(headsetReceiver, intentFilter);
                 isReges = true;
             }
-            mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
         }
 
     }
@@ -215,7 +215,7 @@ public class FM implements View.OnClickListener {
                 break;
             case R.id.fmpassbtn:
             case R.id.fmfailbtn:
-                exitService();
+                stopFm();
                 synchronized (obj) {
                     isFmTest = true;
                 }
