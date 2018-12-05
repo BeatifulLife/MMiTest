@@ -58,10 +58,15 @@ public class FM implements View.OnClickListener {
     private BroadcastReceiver headsetReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (AudioManager.ACTION_AUDIO_BECOMING_NOISY.equals(intent.getAction())){
-                exitService();
-            }else if (AudioManager.ACTION_HEADSET_PLUG.equals(intent.getAction())){
-                startService();
+          if (AudioManager.ACTION_HEADSET_PLUG.equals(intent.getAction())){
+                if(intent.getIntExtra("state", 0) == 0)
+                {
+                    mTextView.setText(R.string.fmnostart);
+                    exitService();
+                }else{
+                    startService();
+                }
+
             }
         }
     };
@@ -71,12 +76,13 @@ public class FM implements View.OnClickListener {
             return;
         }
         synchronized (obj) {
-            IntentFilter intentFilter = new IntentFilter();
-            intentFilter.setPriority(1000);
-            intentFilter.addAction(AudioManager.ACTION_AUDIO_BECOMING_NOISY);
-            intentFilter.addAction(AudioManager.ACTION_HEADSET_PLUG);
-            mActicity.registerReceiver(headsetReceiver, intentFilter);
-            isReges = true;
+            if (!isReges) {
+                IntentFilter intentFilter = new IntentFilter();
+                intentFilter.setPriority(1000);
+                intentFilter.addAction(AudioManager.ACTION_HEADSET_PLUG);
+                mActicity.registerReceiver(headsetReceiver, intentFilter);
+                isReges = true;
+            }
             mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
         }
 
@@ -84,6 +90,12 @@ public class FM implements View.OnClickListener {
 
     public void stopFm(){
         exitService();
+        synchronized (obj){
+            if (isReges){
+                isReges = false;
+                mActicity.unregisterReceiver(headsetReceiver);
+            }
+        }
     }
 
     private void startService(){
@@ -105,6 +117,7 @@ public class FM implements View.OnClickListener {
     }
 
     private void exitService() {
+
         if (mIsServiceBinded) {
             mActicity.unbindService(mServiceConnection);
             mIsServiceBinded = false;
@@ -119,21 +132,19 @@ public class FM implements View.OnClickListener {
 
         }
 
-        mActicity.myHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                searchBtn.setEnabled(false);
-                nextBtn.setEnabled(false);
-            }
-        });
+        searchBtn.setEnabled(false);
+        nextBtn.setEnabled(false);
 
     }
 
     private void searchFm(){
+        searchBtn.setEnabled(false);
+        nextBtn.setEnabled(false);
+        mTextView.setText(R.string.fmtips);
         mActicity.myHandler.post(new Runnable() {
             @Override
             public void run() {
-                searchBtn.setEnabled(false);
+
                 mTextView.setText(R.string.fmtips);
                 if (mService!=null){
                     if (mService.isScanning()){
@@ -142,6 +153,10 @@ public class FM implements View.OnClickListener {
                     FmNative.setMute(true);
                     FmNative.setRds(false);
                     fmList = FmNative.autoScan();
+
+                    if (!mIsServiceBinded||!mIsServiceStarted){
+                        return;
+                    }
                     if (fmList != null && fmList.length > 0){
                         defaultFreq = fmList[0];
                         float value = (float) defaultFreq/10f;
@@ -150,9 +165,12 @@ public class FM implements View.OnClickListener {
                         mTextView.setText(""+value);
                         FmNative.setRds(true);
                         FmNative.setMute(false);
+                        nextBtn.setEnabled(true);
+                    }else{
+                        mTextView.setText(R.string.fmnoradio);
                     }
                 }
-                nextBtn.setEnabled(true);
+
                 searchBtn.setEnabled(true);
 
             }
@@ -175,7 +193,9 @@ public class FM implements View.OnClickListener {
                         index = 0;
                     }
                     defaultFreq = fmList[index];
-                    mService.tuneStationAsync(defaultFreq/10f);
+                    float value = defaultFreq/10f;
+                    mService.tuneStationAsync(value);
+                    mTextView.setText(""+value);
                 }
                 nextBtn.setEnabled(true);
             }
@@ -200,6 +220,8 @@ public class FM implements View.OnClickListener {
                     isFmTest = true;
                 }
                 mActicity.findViewById(R.id.fmbtnline).setVisibility(View.GONE);
+                searchBtn.setVisibility(View.GONE);
+                nextBtn.setVisibility(View.GONE);
                 if (id == R.id.fmfailbtn){
                     mTextView.setTextColor(Color.RED);
                     mTextView.setText(R.string.testfail);
@@ -208,6 +230,8 @@ public class FM implements View.OnClickListener {
                     mTextView.setText(R.string.testsuccess);
                 }
 
+                break;
+            default:
                 break;
         }
     }
@@ -218,7 +242,7 @@ public class FM implements View.OnClickListener {
         public void onServiceConnected(ComponentName name, IBinder service) {
             mService = ((FmService.ServiceBinder)service).getService();
             if (mService == null){
-
+                Log.e(TAG,"FM Serivce is null");
             }else{
                 if (!isServiceInit()){
                     initService(defaultFreq);
@@ -309,11 +333,12 @@ public class FM implements View.OnClickListener {
         public void run() {
             if (openDevice()) {
                 Bundle bundle = new Bundle();
-                bundle.putFloat("frequency", (float)defaultFreq);
+                bundle.putFloat("frequency", (float)defaultFreq/10f);
                 mService.handlePowerUp(bundle);
                 mActicity.myHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        mTextView.setText(""+defaultFreq/10f);
                         searchBtn.setEnabled(true);
                         if (fmList!=null && fmList.length>0){
                             nextBtn.setEnabled(true);
@@ -332,10 +357,12 @@ public class FM implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void... params) {
             powerUp((float)defaultFreq/10f);
+
             mActicity.myHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     searchBtn.setEnabled(true);
+                    mTextView.setText(""+defaultFreq/10f);
                     if (fmList!=null && fmList.length>0){
                         nextBtn.setEnabled(true);
                     }
