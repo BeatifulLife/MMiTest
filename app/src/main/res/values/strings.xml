@@ -49,7 +49,14 @@
     <string name="headsetnoplus">耳机未插入！</string>
     <string name="fmtips">正在搜索电台...</string>
     <string name="fmnostart">请插入耳机,然后搜索电台.</string>
-    <string name="fmtitle">FM</string>
+    <string name="fmtitle">FM&#160;</string>
     <string name="fmsearch">搜索</string>
     <string name="fmnoradio">未搜索到电台</string>
+    <string name="calititle">校准信息&#160;</string>
+    <string name="calinoserver">校准服务未启动</string>
+    <string name="califail">未检测到校准成功标识位</string>
+    <string name="calinodata">无法获取校准信息</string>
+    <string name="calinogsm">无GSM</string>
+    <string name="calisucess">校准成功</string>
+    <string name="fmnext">下一个</string>
 </resources>

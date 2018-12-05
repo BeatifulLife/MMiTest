@@ -575,6 +575,11 @@
                 android:text="@string/fmsearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/fmnextbtn"
+                android:text="@string/fmnext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/fmtips"
@@ -611,6 +616,25 @@
             </LinearLayout>
         </LinearLayout>
 
+    </LinearLayout>
+
+    <!--加速度-->
+    <LinearLayout
+        android:id="@+id/caliitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/itemTitleSize"
+            android:text="@string/calititle"/>
+
+        <TextView
+            android:id="@+id/calitips"
+            android:textSize="@dimen/itemTipsSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
 </LinearLayout>

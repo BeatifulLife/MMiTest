@@ -2,6 +2,7 @@ package com.example.xu.mmitest;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private Speaker mSpeaker;
     private Headset mHeadset;
     private ProximitySensor mProximitySensor;
+    private FM mFm;
+    private CFT mCft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         mSpeaker = new Speaker(this);
         mHeadset = new Headset(this);
         mProximitySensor = new ProximitySensor(this);
+        mFm = new FM(this);
+        mCft = new CFT(this);
         requestAllPermission();
     }
 
@@ -98,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if (isStartTest) {return;}
-
+/*
                     if (mFeatureSupport.isSupportGsensor()) {
                         mGsnesor.startGsensor();
                     } else {
@@ -171,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
                     mWifi.startWifi();
                     mLcd.statLcdBrightness();
                     mSpeaker.startSpeaker();
-
+*/
+                    mFm.startFm();
+                    mCft.startCft();
                 }
             }.run();
         }
@@ -182,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         synchronized (obj) {
             if (!isStartTest) {return;}
             isStartTest = false;
-
+/*
             if (mFeatureSupport.isSupportGsensor()) {
                 mGsnesor.stopGsensor();
             }
@@ -230,7 +237,9 @@ public class MainActivity extends AppCompatActivity {
             mWifi.stopWifi();
             mLcd.stopLcdBrightness();
             mSpeaker.stopSpeaker();
-
+*/
+            mFm.stopFm();
+            mCft.stopCft();
         }
     }
 
@@ -254,5 +263,7 @@ public class MainActivity extends AppCompatActivity {
     public FeatureSupport getmFeatureSupport(){
         return mFeatureSupport;
     }
+
+    public Handler myHandler = new Handler();
 
 }

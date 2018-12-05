@@ -30,4 +30,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('libs/framework.jar')
     implementation files('libs/framework2.jar')
+    implementation files('libs/mmifm.jar')
 }
