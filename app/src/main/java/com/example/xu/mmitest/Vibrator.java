@@ -16,7 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class Vibrator implements View.OnClickListener {
+public class Vibrator implements View.OnClickListener,Item {
 
     private Activity mActivity;
     private TextView mTextView;
@@ -102,8 +102,18 @@ public class Vibrator implements View.OnClickListener {
         stopVibrator();
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.vibratoritem).setVisibility(View.GONE);
     }
 
+    @Override
+    public void startItem() {
+        startVibrator();
+    }
+
+    @Override
+    public void stopItem() {
+        stopVibrator();
+    }
 }

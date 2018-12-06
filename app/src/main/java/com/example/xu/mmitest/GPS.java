@@ -26,7 +26,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class GPS implements LocationListener {
+public class GPS implements LocationListener,Item {
     private Activity mActivity;
     private LocationManager mLocationManager;
     private Double mLongitude;
@@ -96,6 +96,7 @@ public class GPS implements LocationListener {
         }
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.gpsitem).setVisibility(View.GONE);
     }
@@ -129,6 +130,16 @@ public class GPS implements LocationListener {
     @Override
     public void onProviderDisabled(String provider) {
         Log.i("MYTEST","onProviderDisabled");
+    }
+
+    @Override
+    public void startItem() {
+        startGps();
+    }
+
+    @Override
+    public void stopItem() {
+        stopGps();
     }
 
 

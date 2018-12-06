@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.android.fmradio.FmNative;
 import com.android.fmradio.FmService;
 
-public class FM implements View.OnClickListener {
+public class FM implements View.OnClickListener,Item {
 
     private static final String TAG = "MMI-FM";
     private MainActivity mActicity;
@@ -72,7 +72,17 @@ public class FM implements View.OnClickListener {
         }
     };
 
-    public void startFm(){
+    @Override
+    public void startItem() {
+        startFm();
+    }
+
+    @Override
+    public void stopItem() {
+        stopFm();
+    }
+
+    public   void startFm(){
         if (isFmTest) {
             return;
         }

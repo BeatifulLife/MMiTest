@@ -11,13 +11,14 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class Wifi {
+public class Wifi implements Item{
 
-    private Context mContext;
+    private Activity mActivity;
     private TextView mTextView;
     private WifiManager mWifiManager;
     private Resources mResource;
@@ -29,14 +30,14 @@ public class Wifi {
 
 
     public Wifi(Activity activity) {
-        this.mContext = activity;
+        this.mActivity = activity;
         this.mTextView = activity.findViewById(R.id.wifitips);
-        mResource = mContext.getResources();
+        mResource = mActivity.getResources();
     }
 
     private void init(){
         if (isWifiReges){return;}
-        mWifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+        mWifiManager = (WifiManager) mActivity.getSystemService(Context.WIFI_SERVICE);
         if(!mWifiManager.isWifiEnabled()){
             mWifiManager.setWifiEnabled(true);
 
@@ -45,7 +46,7 @@ public class Wifi {
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        mContext.registerReceiver(wifiReceiver,filter);
+        mActivity.registerReceiver(wifiReceiver,filter);
         isWifiReges = true;
         mWifiManager.startScan();
         mTextView.setTextColor(Color.YELLOW);
@@ -63,7 +64,7 @@ public class Wifi {
     public void stopWifi(){
         synchronized (obj) {
             if (isWifiReges) {
-                mContext.unregisterReceiver(wifiReceiver);
+                mActivity.unregisterReceiver(wifiReceiver);
                 isWifiReges = false;
             }
         }
@@ -124,4 +125,18 @@ public class Wifi {
         mTextView.setText(wifiText);
     }
 
+    @Override
+    public void startItem() {
+        startWifi();
+    }
+
+    @Override
+    public void stopItem() {
+        stopWifi();
+    }
+
+    @Override
+    public void inVisible() {
+        mActivity.findViewById(R.id.wifiitem).setVisibility(View.GONE);
+    }
 }

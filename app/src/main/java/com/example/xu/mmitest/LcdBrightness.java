@@ -10,7 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class LcdBrightness implements View.OnClickListener {
+public class LcdBrightness implements View.OnClickListener,Item {
     private Activity mActivity;
     private ScheduledExecutorService mSchedule;
     private boolean isHight = true;
@@ -85,5 +85,20 @@ public class LcdBrightness implements View.OnClickListener {
         isLcdTest = true;
         mActivity.findViewById(R.id.lcdbtnline).setVisibility(View.INVISIBLE);
         stopLcdBrightness();
+    }
+
+    @Override
+    public void startItem() {
+        statLcdBrightness();
+    }
+
+    @Override
+    public void stopItem() {
+        stopLcdBrightness();
+    }
+
+    @Override
+    public void inVisible() {
+        mActivity.findViewById(R.id.lcditem).setVisibility(View.GONE);
     }
 }

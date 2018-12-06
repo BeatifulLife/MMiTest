@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class Speaker implements View.OnClickListener {
+public class Speaker implements View.OnClickListener,Item {
 
     private TextView mTextView;
     private MediaPlayer mMediaPlay;
@@ -54,6 +54,7 @@ public class Speaker implements View.OnClickListener {
         }
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.speakeritem).setVisibility(View.GONE);
     }
@@ -69,6 +70,16 @@ public class Speaker implements View.OnClickListener {
         }
         isSpeakerTest = true;
         mActivity.findViewById(R.id.speakerbtnline).setVisibility(View.INVISIBLE);
+        stopSpeaker();
+    }
+
+    @Override
+    public void startItem() {
+        startSpeaker();
+    }
+
+    @Override
+    public void stopItem() {
         stopSpeaker();
     }
 }

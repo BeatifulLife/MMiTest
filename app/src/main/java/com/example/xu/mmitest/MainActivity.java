@@ -6,9 +6,10 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private Bluetooth mBluetooth;
     private Vibrator mVibrator;
     private Mic mMic;
-    private FlashLight mFlashLight;
+    private BackFlashLight mBackFlash;
+    private FrontFlashLight mFrontFlash;
     private LightSensor mLightsensor;
     private LED mLed;
     private LcdBrightness mLcd;
@@ -34,11 +36,20 @@ public class MainActivity extends AppCompatActivity {
     private ProximitySensor mProximitySensor;
     private FM mFm;
     private CFT mCft;
+    private Camera mCamera;
+    private boolean isInit = false;
+
+    private ArrayList<Item> itemList = new ArrayList<Item>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+        requestAllPermission();
+    }
+
+    private void init(){
         mFeatureSupport = new FeatureSupport(this);
         mKeyView = findViewById(R.id.keylayout);
         mMic = new Mic(this);
@@ -47,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         mWifi = new Wifi(this);
         mBluetooth = new Bluetooth(this);
         mVibrator = new Vibrator(this);
-        mFlashLight = new FlashLight(this);
+        mBackFlash = new BackFlashLight(this);
+        mFrontFlash = new FrontFlashLight(this);
         mLightsensor = new LightSensor(this);
         mLed = new LED(this);
         mLcd = new LcdBrightness(this);
@@ -57,7 +69,128 @@ public class MainActivity extends AppCompatActivity {
         mProximitySensor = new ProximitySensor(this);
         mFm = new FM(this);
         mCft = new CFT(this);
-        requestAllPermission();
+        mCamera = new Camera(this,mFeatureSupport.isSupportBackCamera(),mFeatureSupport.isSupportFrontCamera());
+        isInit = true;
+    }
+
+    private void initItem(){
+
+        if (!isInit){
+            init();
+        }
+        if (mFeatureSupport.isSupportKey()){
+            itemList.add(mKeyView);
+        }else{
+            mKeyView.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportMainMic()){
+            itemList.add(mMic);
+        }else {
+            mMic.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportGsensor()){
+            itemList.add(mGsnesor);
+        }else {
+            mGsnesor.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportGps()){
+            itemList.add(mGps);
+        }else{
+            mGps.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportWifi()){
+            itemList.add(mWifi);
+        }else{
+            mWifi.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportBluetooth()){
+            itemList.add(mBluetooth);
+        }else {
+            mBluetooth.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportVibrator()){
+            itemList.add(mVibrator);
+        }else {
+            mVibrator.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportBackFlash()){
+            itemList.add(mBackFlash);
+        }else{
+            mBackFlash.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportBackFlash()){
+            itemList.add(mFrontFlash);
+        }else{
+            mFrontFlash.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportLightSensor()){
+            itemList.add(mLightsensor);
+        }else{
+            mLightsensor.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportLed()){
+            itemList.add(mLed);
+        }else{
+            mLed.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportLcd()){
+            itemList.add(mLcd);
+        }else{
+            mLcd.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportReceiver()){
+            itemList.add(mReceiver);
+        }else{
+            mReceiver.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportSpeaker()){
+            itemList.add(mSpeaker);
+        }else {
+            mSpeaker.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportHeadset()){
+            itemList.add(mHeadset);
+        }else{
+            mHeadset.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportProximitySensor()){
+            itemList.add(mProximitySensor);
+        }else{
+            mProximitySensor.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportFm()){
+            itemList.add(mFm);
+        }else {
+            mFm.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportCFT()){
+            itemList.add(mCft);
+        }else{
+            mCft.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportBackCamera() || mFeatureSupport.isSupportFrontCamera()){
+            itemList.add(mCamera);
+        }else{
+            mCamera.inVisible();
+        }
     }
 
 
@@ -103,82 +236,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if (isStartTest) {return;}
-/*
-                    if (mFeatureSupport.isSupportGsensor()) {
-                        mGsnesor.startGsensor();
-                    } else {
-                        mGsnesor.inVisible();
+                    for (Item item :itemList){
+                        item.startItem();
                     }
-                    if (mFeatureSupport.isSupportGps()) {
-                        mGps.startGps();
-                    } else {
-                        mGps.inVisible();
-                    }
-                    if (!mFeatureSupport.isSupportMainMic()) {
-                        mMic.inVisible();
-                    }
-                    if (mFeatureSupport.isSupportBluetooth()) {
-                        mBluetooth.startBluetooth();
-                    } else {
-                        mBluetooth.inVisible();
-                    }
-
-                    if (mFeatureSupport.isSupportVibrator()) {
-                        mVibrator.startVibrator();
-                    } else {
-                        mVibrator.inVisible();
-                    }
-
-                    if (mFeatureSupport.isSupportBackFlash()) {
-                        Log.i("MYTEST", "BackfFlash Support");
-                        mFlashLight.startBackFlashLight();
-                    } else {
-                        Log.i("MYTEST", "BackfFlash not Support");
-                        mFlashLight.inVisibleBackFlashLight();
-                    }
-
-                    if (mFeatureSupport.isSupportFrontFlash()) {
-                        mFlashLight.startFrontFlahgLight();
-                    } else {
-                        mFlashLight.inVisibleFrontFlashLight();
-                    }
-
-
-                    if (mFeatureSupport.isSupportLightSensor()) {
-                        mLightsensor.startLightSensor();
-                    } else {
-                        mLightsensor.inVisible();
-                    }
-
-                    if (mFeatureSupport.isSupportLed()){
-                        mLed.startLed();
-                    }else{
-                        mLed.inVisible();
-                    }
-
-                    if (mFeatureSupport.isSupportReceiver()) {
-                        mReceiver.startReceiver();
-                    }else{
-                        mReceiver.inVisible();
-                    }
-
-                    if (mFeatureSupport.isSupportHeadset()){
-                        mHeadset.startHeadset();
-                    }else{
-                        mHeadset.inVisible();
-                    }
-
-                    if (mFeatureSupport.isSupportProximitySensor()){
-                        mProximitySensor.startProxumitySensor();
-                    }else{
-                        mProximitySensor.inVisible();
-                    }
-                    mWifi.startWifi();
-                    mLcd.statLcdBrightness();
-                    mSpeaker.startSpeaker();
-*/
-                    mFm.startFm();
-                    mCft.startCft();
+                    isStartTest = true;
                 }
             }.run();
         }
@@ -188,58 +249,10 @@ public class MainActivity extends AppCompatActivity {
     private void doStopAll(){
         synchronized (obj) {
             if (!isStartTest) {return;}
+            for (Item item :itemList){
+                item.stopItem();
+            }
             isStartTest = false;
-/*
-            if (mFeatureSupport.isSupportGsensor()) {
-                mGsnesor.stopGsensor();
-            }
-            if (mFeatureSupport.isSupportGps()) {
-                mGps.stopGps();
-            }
-            if (mFeatureSupport.isSupportMainMic()) {
-                mMic.stopMic();
-            }
-            if (mFeatureSupport.isSupportBluetooth()) {
-                mBluetooth.stopBluetooth();
-            }
-
-            if (mFeatureSupport.isSupportVibrator()) {
-                mVibrator.stopVibrator();
-            }
-
-            if (mFeatureSupport.isSupportBackFlash()) {
-                mFlashLight.stopBackFlashLight();
-            }
-
-            if (mFeatureSupport.isSupportFrontFlash()) {
-                mFlashLight.stopFrontFlashLight();
-            }
-
-            if (mFeatureSupport.isSupportLightSensor()) {
-                mLightsensor.stopLightSensor();
-            }
-
-            if (mFeatureSupport.isSupportLed()){
-                mLed.stopLed();
-            }
-
-            if (mFeatureSupport.isSupportReceiver()) {
-                mReceiver.stopReceiver();
-            }
-
-            if (mFeatureSupport.isSupportHeadset()){
-                mHeadset.stopHeadset();
-            }
-
-            if(mFeatureSupport.isSupportProximitySensor()){
-                mProximitySensor.stopProxumitySensor();
-            }
-            mWifi.stopWifi();
-            mLcd.stopLcdBrightness();
-            mSpeaker.stopSpeaker();
-*/
-            mFm.stopFm();
-            mCft.stopCft();
         }
     }
 

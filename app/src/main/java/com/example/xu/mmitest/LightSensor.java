@@ -15,7 +15,7 @@ import android.widget.TextView;
  * @author xuzhaoyou
  * @date 2018/10/19
  */
-public class LightSensor implements SensorEventListener {
+public class LightSensor implements SensorEventListener,Item {
 
     private Activity mActivity;
     private TextView mTextview;
@@ -44,6 +44,7 @@ public class LightSensor implements SensorEventListener {
         mLightSensor.unregisterListener(this);
     }
 
+    @Override
     public void inVisible(){
         mLinearLayout.setVisibility(View.GONE);
     }
@@ -62,5 +63,15 @@ public class LightSensor implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void startItem() {
+        startLightSensor();
+    }
+
+    @Override
+    public void stopItem() {
+        stopLightSensor();
     }
 }

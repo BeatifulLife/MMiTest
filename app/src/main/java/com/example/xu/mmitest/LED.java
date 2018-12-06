@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/10/22
  * @// TODO: 2018/10/22  allow system_app sysfs:file { read write};
  */
-public class LED implements View.OnClickListener {
+public class LED implements View.OnClickListener,Item {
     private final String TURN_ON = "255";
     private final String TURN_OFF = "0";
     private Object obj = new Object();
@@ -47,6 +47,7 @@ public class LED implements View.OnClickListener {
         activity.findViewById(R.id.ledpassbtn).setOnClickListener(this);
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.leditem).setVisibility(View.GONE);
     }
@@ -189,6 +190,16 @@ public class LED implements View.OnClickListener {
         }
         isLedTest = true;
         mActivity.findViewById(R.id.ledbtnline).setVisibility(View.INVISIBLE);
+        stopLed();
+    }
+
+    @Override
+    public void startItem() {
+        startLed();
+    }
+
+    @Override
+    public void stopItem() {
         stopLed();
     }
 }

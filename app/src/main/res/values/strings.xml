@@ -59,4 +59,10 @@
     <string name="calinogsm">无GSM</string>
     <string name="calisucess">校准成功</string>
     <string name="fmnext">下一个</string>
+    <string name="cameratitle">摄像头</string>
+    <string name="backcamerapass"><Data><![CDATA[<font color="#00ff00">后置摄像头通过&#160;</font>]]></Data></string>
+    <string name="frontcamerapass"><Data><![CDATA[<font color="#00ff00">前置摄像头通过&#160;</font>]]></Data></string>
+    <string name="backcamerafail"><Data><![CDATA[<font color="#ff0000">后置摄像头失败</font>]]></Data></string>
+    <string name="frontcamerafail"><Data><![CDATA[<font color="#ff0000">前置摄像头失败</font>]]></Data></string>
+
 </resources>

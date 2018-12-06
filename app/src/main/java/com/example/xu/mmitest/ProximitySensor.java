@@ -15,7 +15,7 @@ import android.widget.TextView;
  * @author xuzhaoyou
  * @date 2018/10/19
  */
-public class ProximitySensor implements SensorEventListener {
+public class ProximitySensor implements SensorEventListener,Item {
 
     private Activity mActivity;
     private TextView mTextview;
@@ -44,6 +44,7 @@ public class ProximitySensor implements SensorEventListener {
         mProxumitySensor.unregisterListener(this);
     }
 
+    @Override
     public void inVisible(){
         mLinearLayout.setVisibility(View.GONE);
     }
@@ -62,5 +63,15 @@ public class ProximitySensor implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void startItem() {
+        startProxumitySensor();
+    }
+
+    @Override
+    public void stopItem() {
+        stopProxumitySensor();
     }
 }

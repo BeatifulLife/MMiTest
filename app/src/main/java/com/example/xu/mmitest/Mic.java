@@ -15,7 +15,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 
-public class Mic implements View.OnClickListener {
+public class Mic implements View.OnClickListener,Item {
 
     private final String RECORDFILENAME = "/sdcard/audiotest.amr";
     private final int[] waveform = new int[10];
@@ -155,7 +155,18 @@ public class Mic implements View.OnClickListener {
         }
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.micitem).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void startItem() {
+
+    }
+
+    @Override
+    public void stopItem() {
+        stopMic();
     }
 }

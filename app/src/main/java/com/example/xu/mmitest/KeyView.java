@@ -1,5 +1,6 @@
 package com.example.xu.mmitest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -9,11 +10,10 @@ import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class KeyView extends LinearLayout {
+public class KeyView extends LinearLayout implements Item {
 
 
     private static boolean isHasPass = false;
-
     private  KeyMap[] keymap = {
       new KeyMap(R.string.volup,KeyEvent.KEYCODE_VOLUME_UP,false),
       new KeyMap(R.string.voldown,KeyEvent.KEYCODE_VOLUME_DOWN,false),
@@ -45,6 +45,21 @@ public class KeyView extends LinearLayout {
             keymap[i].setButton(button);
             this.addView(button);
         }
+    }
+
+    @Override
+    public void startItem() {
+
+    }
+
+    @Override
+    public void stopItem() {
+
+    }
+
+    @Override
+    public void inVisible() {
+        this.setVisibility(GONE);
     }
 
     class KeyMap{

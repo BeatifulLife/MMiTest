@@ -637,4 +637,67 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+
+    <!--摄像头-->
+    <LinearLayout
+        android:id="@+id/cameraitem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cameratitle"
+                android:textSize="@dimen/itemTitleSize" />
+
+            <TextView
+                android:id="@+id/cameratips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/itemTipsSize" />
+
+            <com.example.xu.mmitest.CameraPreview
+                android:id="@+id/camerapreview"
+                android:layout_width="300dp"
+                android:layout_height="200dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/camerabtnline"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/camerapassbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:background="@color/passbuttoncolor"
+                    android:text="@string/pass" />
+
+                <Button
+                    android:id="@+id/camerafailbtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/failbuttoncolor"
+                    android:textSize="@dimen/itemBtnTextSize"
+                    android:text="@string/fail" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 </LinearLayout>

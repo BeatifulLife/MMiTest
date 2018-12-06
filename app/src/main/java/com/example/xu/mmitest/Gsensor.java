@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-public class Gsensor implements SensorEventListener {
+public class Gsensor implements SensorEventListener,Item {
     private SensorManager mSensorManager;
     private Sensor mGsensor;
     private TextView mTextView;
@@ -53,6 +53,7 @@ public class Gsensor implements SensorEventListener {
         }
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.gsensoritem).setVisibility(View.GONE);
     }
@@ -65,6 +66,16 @@ public class Gsensor implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        startGsensor();
+    }
+
+    @Override
+    public void startItem() {
+        stopGsensor();
+    }
+
+    @Override
+    public void stopItem() {
 
     }
 }

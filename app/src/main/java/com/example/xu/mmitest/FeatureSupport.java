@@ -24,6 +24,23 @@ public class FeatureSupport {
     private final boolean HAS_LED = true;
     private final boolean HAS_RECEIVER = true;
     private final boolean HAS_HEADSET = true;
+    private final boolean HAS_SPEAKER = true;
+    private final boolean HAS_KEY = true;
+    private final boolean HAS_WIFI = true;
+    private final boolean HAS_LCD = false;
+    private final boolean HAS_FM = true;
+    private final boolean HAS_BLUETOOTH = true;
+    private final boolean HAS_BACKCAMERA = true;
+    private final boolean HAS_FRONTCAMERA = true;
+    private final boolean HAS_FRONTFLASH = false;
+    private final boolean HAS_BACKTFLASH = true;
+    private final boolean HAS_GPS = true;
+    private final boolean HAS_GSENSOR = true;
+    private final boolean HAS_VIBRATOR = true;
+    private final boolean HAS_MAINMIC = true;
+    private final boolean HAS_LIGHTSENSOR = true;
+    private final boolean HAS_PROXIMITY = true;
+    private final boolean HAS_CFT = true;
     private Activity mActivity;
     private String backCamereId;
     private String frontCameraId;
@@ -32,12 +49,14 @@ public class FeatureSupport {
     }
 
     public boolean isSupportBluetooth(){
+        return HAS_BLUETOOTH;
+        /*
         BluetoothManager mBlueManager = (BluetoothManager) mActivity.getSystemService(Context.BLUETOOTH_SERVICE);
         if(mBlueManager== null || mBlueManager.getAdapter()==null){
             return false;
         }else{
             return true;
-        }
+        }*/
     }
 
     public enum CAMERA_FEATURE{
@@ -92,49 +111,62 @@ public class FeatureSupport {
     }
 
     public boolean isSupportBackFlash(){
-        return isSupportCameraFeature(CAMERA_FEATURE.FLASH_BACK);
+        return HAS_BACKTFLASH;
+        //return isSupportCameraFeature(CAMERA_FEATURE.FLASH_BACK);
     }
 
     public boolean isSupportFrontFlash(){
-        return isSupportCameraFeature(CAMERA_FEATURE.FLASH_FRONT);
+        return HAS_FRONTFLASH;
+        //return isSupportCameraFeature(CAMERA_FEATURE.FLASH_FRONT);
     }
 
     public boolean isSupportBackCamera(){
-        return isSupportCameraFeature(CAMERA_FEATURE.CAMERA_BACK);
+        return HAS_BACKCAMERA;
+        //return isSupportCameraFeature(CAMERA_FEATURE.CAMERA_BACK);
     }
 
     public boolean isSupportFrontCamera(){
-        return isSupportCameraFeature(CAMERA_FEATURE.CAMERA_FRONT);
+        return HAS_FRONTCAMERA;
+        //return isSupportCameraFeature(CAMERA_FEATURE.CAMERA_FRONT);
     }
 
     public boolean isSupportGps(){
+        return HAS_GPS;
+        /*
         LocationManager locationManager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         if (locationManager!=null && locationManager.getProvider(LocationManager.GPS_PROVIDER)!=null){
             return true;
         }else{
             return  false;
         }
+        */
     }
 
     public boolean isSupportGsensor(){
+        return HAS_GSENSOR;
+        /*
         SensorManager sensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager!=null && sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!=null){
             return true;
         }else{
             return false;
-        }
+        }*/
     }
 
     public boolean isSupportVibrator(){
+        return HAS_VIBRATOR;
+        /*
         Vibrator vibrator = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
         if(vibrator!=null && vibrator.hasVibrator()){
             return true;
         }else{
             return false;
-        }
+        }*/
     }
 
     public boolean isSupportMainMic(){
+        return HAS_MAINMIC;
+        /*
         AudioManager audioManager = (AudioManager) mActivity.getSystemService(Context.AUDIO_SERVICE);
         AudioDeviceInfo[]audioDeviceInfos = audioManager.getDevices(AudioManager.GET_DEVICES_INPUTS);
         for (AudioDeviceInfo audioDeviceInfo: audioDeviceInfos){
@@ -143,31 +175,46 @@ public class FeatureSupport {
             }
         }
         return false;
+        */
     }
 
     public boolean isSupportLightSensor(){
+        return HAS_LIGHTSENSOR;
+        /*
         SensorManager sensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager!=null && sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)!=null){
             return true;
         }else{
             return false;
-        }
+        }*/
     }
 
     public boolean isSupportProximitySensor(){
+        return HAS_PROXIMITY;
+        /*
         SensorManager sensorManager = (SensorManager) mActivity.getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager!=null && sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)!=null){
             return true;
         }else{
             return false;
-        }
+        }*/
     }
 
-    public boolean isSupportLed(){
-        return HAS_LED;
-    }
+    public boolean isSupportLed(){ return HAS_LED; }
 
     public boolean isSupportReceiver(){ return HAS_RECEIVER; }
 
     public boolean isSupportHeadset(){ return  HAS_HEADSET; }
+
+    public boolean isSupportSpeaker() { return HAS_SPEAKER; }
+
+    public boolean isSupportKey() { return HAS_KEY; }
+
+    public boolean isSupportWifi() { return  HAS_WIFI; }
+
+    public boolean isSupportLcd() { return  HAS_LCD; }
+
+    public boolean isSupportFm() { return  HAS_FM; }
+
+    public boolean isSupportCFT() { return  HAS_CFT; }
 }

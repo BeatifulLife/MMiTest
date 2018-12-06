@@ -10,7 +10,7 @@ import android.media.AudioManager;
 import android.view.View;
 import android.widget.TextView;
 
-public class Headset {
+public class Headset implements Item{
     private TextView mTextView;
     private Activity mActivity;
     private static boolean isHeadsetTest = false;
@@ -21,6 +21,7 @@ public class Headset {
         mTextView = activity.findViewById(R.id.headsettips);
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.headsetitem).setVisibility(View.GONE);
     }
@@ -62,4 +63,13 @@ public class Headset {
         }
     };
 
+    @Override
+    public void startItem() {
+        startHeadset();
+    }
+
+    @Override
+    public void stopItem() {
+        stopHeadset();
+    }
 }

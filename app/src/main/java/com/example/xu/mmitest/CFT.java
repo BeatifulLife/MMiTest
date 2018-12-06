@@ -10,7 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class CFT {
+public class CFT implements Item{
     private MainActivity mActivity;
     private static boolean isCftTest = false;
     private static final String DEFAULT_VALUE =  "NOPROP";
@@ -21,6 +21,7 @@ public class CFT {
         mTextView = mActivity.findViewById(R.id.calitips);
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.caliitem).setVisibility(View.GONE);
     }
@@ -102,4 +103,13 @@ public class CFT {
         }
     }
 
+    @Override
+    public void startItem() {
+        startCft();
+    }
+
+    @Override
+    public void stopItem() {
+        stopCft();
+    }
 }

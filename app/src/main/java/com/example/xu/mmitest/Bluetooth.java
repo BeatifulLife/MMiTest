@@ -22,7 +22,7 @@ import java.util.Map;
  * @author xuzhaoyou
  * @date 2018/10/19
  */
-public class Bluetooth {
+public class Bluetooth implements Item{
     private TextView mTextView;
     private Activity mActivity;
     private BluetoothManager mBluetoothManager;
@@ -63,6 +63,16 @@ public class Bluetooth {
         }
     }
 
+    @Override
+    public void startItem() {
+        startBluetooth();
+    }
+
+    @Override
+    public void stopItem() {
+        stopBluetooth();
+    }
+
     private Handler myHandler = new Handler();
     public void startBluetooth(){
         myHandler.post(new Runnable() {
@@ -90,6 +100,7 @@ public class Bluetooth {
         }
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.bluetoothitem).setVisibility(View.GONE);
     }

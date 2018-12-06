@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
-public class Receiver implements View.OnClickListener {
+public class Receiver implements View.OnClickListener,Item {
     private Activity mActivity;
     private TextView mTextView;
     private static boolean isReceiverTest = false;
@@ -54,6 +54,7 @@ public class Receiver implements View.OnClickListener {
         }
     }
 
+    @Override
     public void inVisible(){
         mActivity.findViewById(R.id.receiveritem).setVisibility(View.GONE);
     }
@@ -69,6 +70,16 @@ public class Receiver implements View.OnClickListener {
         }
         isReceiverTest = true;
         mActivity.findViewById(R.id.receiverbtnline).setVisibility(View.INVISIBLE);
+        stopReceiver();
+    }
+
+    @Override
+    public void startItem() {
+        startReceiver();
+    }
+
+    @Override
+    public void stopItem() {
         stopReceiver();
     }
 }
