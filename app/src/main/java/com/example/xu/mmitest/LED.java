@@ -50,6 +50,7 @@ public class LED implements View.OnClickListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.leditem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.ledline).setVisibility(View.GONE);
     }
 
     public void startLed(){

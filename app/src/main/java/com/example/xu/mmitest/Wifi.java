@@ -24,7 +24,7 @@ public class Wifi implements Item{
     private Resources mResource;
     private static boolean isWifiReges = false;
     private Object obj = new Object();
-    private boolean isHasTest = false;
+    private boolean isWifiTest = false;
     private int level = -200;
     private int count = 0;
 
@@ -56,7 +56,7 @@ public class Wifi implements Item{
 
     public void startWifi(){
             synchronized (obj) {
-                if (isHasTest) {return;}
+                if (isWifiTest) {return;}
                 init();
             }
     }
@@ -75,17 +75,14 @@ public class Wifi implements Item{
         public void onReceive(Context context, Intent intent) {
             if(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION.equals(intent.getAction())){
                 updateText();
-                /*
+
                 if (level>=-55) {
-                    isHasTest = true;
+                    isWifiTest = true;
                     stopWifi();
                 }else{
                     mWifiManager.startScan();
                 }
-                */
-                if (count==0) {
-                    mWifiManager.startScan();
-                }
+
             }
         }
     };
@@ -138,5 +135,6 @@ public class Wifi implements Item{
     @Override
     public void inVisible() {
         mActivity.findViewById(R.id.wifiitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.wifiline).setVisibility(View.GONE);
     }
 }

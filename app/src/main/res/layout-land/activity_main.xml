@@ -4,57 +4,65 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!--麦克-->
     <LinearLayout
-        android:id="@+id/micitem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/audiorecordbtn"
-            android:textSize="@dimen/itemBtnTextSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--麦克-->
+        <LinearLayout
+            android:id="@+id/micitem"
+            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/micBtnHeight"
-            android:background="@drawable/shape_micbtn"
-            android:text="@string/audiorecord"/>
+            android:layout_height="wrap_content">
 
-        <com.example.xu.mmitest.WaveView
-            android:id="@+id/maveid"
-            android:layout_width="@dimen/wavewidth"
-            android:layout_height="@dimen/waveheight"
-            />
+            <Button
+                android:id="@+id/audiorecordbtn"
+                android:textSize="@dimen/itemBtnTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/micBtnHeight"
+                android:background="@drawable/shape_micbtn"
+                android:text="@string/audiorecord"/>
 
+            <com.example.xu.mmitest.WaveView
+                android:id="@+id/maveid"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/wavewidth"
+                android:layout_height="@dimen/waveheight"
+                />
+
+        </LinearLayout>
+
+        <!--按键-->
+        <LinearLayout
+            android:id="@+id/keyitem"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/itemtiltlecolor"
+                android:textSize="@dimen/land_itemTitleSize"
+                android:text="@string/keytitle"/>
+
+            <com.example.xu.mmitest.KeyView
+                android:id="@+id/keylayout"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </com.example.xu.mmitest.KeyView>
+
+        </LinearLayout>
     </LinearLayout>
 
     <View
         android:id="@+id/micline"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="@dimen/lineheight"
         android:background="@color/linecolor" />
-
-    <!--按键-->
-    <LinearLayout
-        android:id="@+id/keyitem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/itemtiltlecolor"
-            android:textSize="@dimen/itemTitleSize"
-            android:text="@string/keytitle"/>
-
-        <com.example.xu.mmitest.KeyView
-            android:id="@+id/keylayout"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </com.example.xu.mmitest.KeyView>
-
-    </LinearLayout>
 
     <View
         android:id="@+id/keyline"
@@ -72,13 +80,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/gsensortitle"/>
 
         <TextView
             android:id="@+id/gsensortips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -98,7 +106,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/gpstitle"/>
 
@@ -124,13 +132,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/wifitiltle"/>
 
         <TextView
             android:id="@+id/wifitips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -150,13 +158,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/bluetoothtitle"/>
 
         <TextView
             android:id="@+id/bluetoothtips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -185,13 +193,13 @@
                 android:layout_height="wrap_content"
                 android:text="@string/vibratortitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/vibratortips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -206,16 +214,16 @@
                 <Button
                     android:id="@+id/vibpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/vibfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_failbtn"
                     android:text="@string/fail" />
             </LinearLayout>
@@ -247,14 +255,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/backflashlight"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/backflashlighttips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/flashlighttips"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -269,17 +277,17 @@
                 <Button
                     android:id="@+id/backflashlightpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/backflashlightfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -309,14 +317,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/frontflashlight"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/frontflashlighttips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/flashlighttips"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -331,17 +339,17 @@
                 <Button
                     android:id="@+id/frontflashlightpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/frontflashlightfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -364,13 +372,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/lightsensortitle"/>
 
         <TextView
             android:id="@+id/lightsensortips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -390,13 +398,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/proximitysensortitle"/>
 
         <TextView
             android:id="@+id/proximitysensortips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -424,14 +432,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ledtitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/ledtips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ledtips"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -446,17 +454,17 @@
                 <Button
                     android:id="@+id/ledpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/ledfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -486,14 +494,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/receivertitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/receivertips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/receivertips"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -508,17 +516,17 @@
                 <Button
                     android:id="@+id/receiverpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/receiverfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -548,14 +556,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lcdtitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/lcdtips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lcdtips"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -570,17 +578,17 @@
                 <Button
                     android:id="@+id/lcdpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/lcdfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -610,14 +618,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/speakertitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/speakertips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/speakertips"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -632,17 +640,17 @@
                 <Button
                     android:id="@+id/speakerpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/speakerfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -664,13 +672,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/headsettiltle"/>
 
         <TextView
             android:id="@+id/headsettips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -698,26 +706,26 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fmtitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
             <Button
                 android:id="@+id/fmsearchbtn"
                 android:text="@string/fmsearch"
                 android:background="@drawable/shape_fmbtn"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/fmBtnHeight" />
+                android:layout_height="@dimen/land_fmBtnHeight" />
             <Button
                 android:id="@+id/fmnextbtn"
                 android:text="@string/fmnext"
                 android:background="@drawable/shape_fmbtn"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/fmBtnHeight" />
+                android:layout_height="@dimen/land_fmBtnHeight" />
 
             <TextView
                 android:id="@+id/fmtips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/fmnostart"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -733,17 +741,17 @@
                 <Button
                     android:id="@+id/fmpassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/fmfailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>
@@ -765,13 +773,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/calititle"/>
 
         <TextView
             android:id="@+id/calitips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -792,13 +800,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/sdcardtitle"/>
 
         <TextView
             android:id="@+id/sdcardtips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:text="@string/sdcardnofind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -819,13 +827,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/otgtitle"/>
 
         <TextView
             android:id="@+id/otgtips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:text="@string/otgnofind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -846,13 +854,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/itemTitleSize"
+            android:textSize="@dimen/land_itemTitleSize"
             android:textColor="@color/itemtiltlecolor"
             android:text="@string/simtitle"/>
 
         <TextView
             android:id="@+id/simtips"
-            android:textSize="@dimen/itemTipsSize"
+            android:textSize="@dimen/land_itemTipsSize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -879,18 +887,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/cameratitle"
                 android:textColor="@color/itemtiltlecolor"
-                android:textSize="@dimen/itemTitleSize" />
+                android:textSize="@dimen/land_itemTitleSize" />
 
             <TextView
                 android:id="@+id/cameratips"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/itemTipsSize" />
+                android:textSize="@dimen/land_itemTipsSize" />
 
             <com.example.xu.mmitest.CameraPreview
                 android:id="@+id/camerapreview"
-                android:layout_width="@dimen/camerawidth"
-                android:layout_height="@dimen/cameraheight" />
+                android:layout_width="@dimen/land_camerawidth"
+                android:layout_height="@dimen/land_cameraheight" />
 
 
         </LinearLayout>
@@ -908,17 +916,17 @@
                 <Button
                     android:id="@+id/camerapassbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:layout_height="@dimen/land_itemBtnHeight"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:background="@drawable/shape_passbtn"
                     android:text="@string/pass" />
 
                 <Button
                     android:id="@+id/camerafailbtn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/itemBtnHeight"
+                    android:layout_height="@dimen/land_itemBtnHeight"
                     android:background="@drawable/shape_failbtn"
-                    android:textSize="@dimen/itemBtnTextSize"
+                    android:textSize="@dimen/land_itemBtnTextSize"
                     android:text="@string/fail" />
             </LinearLayout>
         </LinearLayout>

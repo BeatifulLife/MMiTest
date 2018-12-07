@@ -100,5 +100,6 @@ public class LcdBrightness implements View.OnClickListener,Item {
     @Override
     public void inVisible() {
         mActivity.findViewById(R.id.lcditem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.lcdline).setVisibility(View.GONE);
     }
 }

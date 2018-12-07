@@ -10,6 +10,10 @@ import android.hardware.SensorManager;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 
 public class Gsensor implements SensorEventListener,Item {
     private SensorManager mSensorManager;
@@ -19,6 +23,7 @@ public class Gsensor implements SensorEventListener,Item {
     private String tips = new String();
     private boolean isReges = false;
     private Object obj = new Object();
+    private ScheduledExecutorService scheduledExecutorService;
 
     public  Gsensor(Activity activity){
         mActivity = activity;
@@ -56,6 +61,7 @@ public class Gsensor implements SensorEventListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.gsensoritem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.gsensorline).setVisibility(View.GONE);
     }
 
     @Override
@@ -66,16 +72,27 @@ public class Gsensor implements SensorEventListener,Item {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        startGsensor();
+
     }
 
     @Override
     public void startItem() {
-        stopGsensor();
+        scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
+        scheduledExecutorService.schedule(new Runnable() {
+            @Override
+            public void run() {
+                startGsensor();
+            }
+        },2000,TimeUnit.MILLISECONDS);
+
     }
 
     @Override
     public void stopItem() {
-
+        if (scheduledExecutorService!= null){
+            scheduledExecutorService.shutdown();
+            scheduledExecutorService = null;
+        }
+        stopGsensor();
     }
 }

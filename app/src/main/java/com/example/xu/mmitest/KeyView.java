@@ -2,18 +2,21 @@ package com.example.xu.mmitest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 public class KeyView extends LinearLayout implements Item {
 
 
-    private static boolean isHasPass = false;
+    private static boolean isKeyTest = false;
     private  KeyMap[] keymap = {
       new KeyMap(R.string.volup,KeyEvent.KEYCODE_VOLUME_UP,false),
       new KeyMap(R.string.voldown,KeyEvent.KEYCODE_VOLUME_DOWN,false),
@@ -37,8 +40,13 @@ public class KeyView extends LinearLayout implements Item {
     }
 
     private void createView(Context context){
+        Resources resources = context.getResources();
         for (int i=0;i<keymap.length;i++){
             Button button = new Button(context);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,resources.getDimensionPixelSize(R.dimen.keyBtnHeight));
+            button.setLayoutParams(layoutParams);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP,resources.getDimensionPixelSize(R.dimen.keyBtnTextSize));
+            button.setTextColor(ContextCompat.getColor(context,R.color.keybtntextcolor));
             button.setText(keymap[i].keystrid);
             button.setBackgroundColor(Color.RED);
             button.setEnabled(false);
@@ -59,7 +67,13 @@ public class KeyView extends LinearLayout implements Item {
 
     @Override
     public void inVisible() {
-        this.setVisibility(GONE);
+        isKeyTest = true;
+        Context context = this.getContext();
+        if (context instanceof Activity){
+            Activity activity = (Activity) context;
+            activity.findViewById(R.id.keyitem).setVisibility(GONE);
+            activity.findViewById(R.id.keyline).setVisibility(GONE);
+        }
     }
 
     class KeyMap{
@@ -85,13 +99,13 @@ public class KeyView extends LinearLayout implements Item {
     }
 
     public boolean isKeyTestPass(){
-        if (isHasPass) {return true;}
+        if (isKeyTest) {return true;}
         for (int i=0;i<keymap.length;i++){
             if(!keymap[i].pressed){
                 return false;
             }
         }
-        isHasPass = true;
+        isKeyTest = true;
         return true;
     }
 

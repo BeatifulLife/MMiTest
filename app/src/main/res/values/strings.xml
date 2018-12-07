@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">MMiTest</string>
-    <string name="paoma">跑马灯的效果，点击暂停，再点击恢复</string>
-    <string name="paomatext">我们需要根据上面的Json串来写出对应的Bean类，看得出上面的字段还是不少的，所以把所有的字段都写出来还是有一定的工作量的，而且手工写容易出错，一旦字段不对应，可能会导致整个解析过程出错，这时候GsonFormat迫不及待地跳出来：用我，用我！</string>
     <string name="audiorecord">开始录音</string>
     <string name="audiorecordplay">停止并播放</string>
+    <string name="keytitle">按键&#160;</string>
     <string name="volup">音量+</string>
     <string name="voldown">音量-</string>
-    <string name="gsensortitle">加速度传感</string>
+    <string name="gsensortitle">加速度传感&#160;</string>
     <string name="nogsensor">找到不到加速度传感设备</string>
     <string name="gpstitle">GPS&#160;</string>
     <string name="satellitecount">卫星数:</string>
@@ -24,11 +23,11 @@
     <string name="bluetoothstateturnon">蓝牙正在启动...</string>
     <string name="bluetoothstateturnoff">蓝牙正在关闭...</string>
     <string name="notfindbluetooth">未搜索到蓝牙设备</string>
-    <string name="vibrator">振动器&#160;</string>
+    <string name="vibratortitle">振动器&#160;</string>
     <string name="vibratortips">请确认当前振动器是否振动？</string>
     <string name="backflashlight">后置闪光灯&#160;</string>
     <string name="frontflashlight">前置闪光灯&#160;</string>
-    <string name="flashlighttips">请确认闪光灯是否正在闪烁？</string>
+    <string name="flashlighttips">请确认闪光灯是否亮起？</string>
     <string name="testsuccess">测试成功</string>
     <string name="testfail">测试失败</string>
     <string name="pass">成功</string>
@@ -37,18 +36,19 @@
     <string name="lightsensornodata">光感应传感无数据</string>
     <string name="proximitysensortitle">近距离传感&#160;</string>
     <string name="proximitysensornodata">近距离传感无数据</string>
-    <string name="led">指示灯&#160;</string>
+    <string name="ledtitle">指示灯&#160;</string>
     <string name="ledtips">请确认指示灯是否正在闪烁？</string>
-    <string name="lcd">背光等级&#160;</string>
+    <string name="lcdtitle">背光等级&#160;</string>
     <string name="lcdtips">请确认屏幕背光是否正在闪？</string>
-    <string name="receiver">听筒</string>
+    <string name="receivertitle">听筒&#160;</string>
     <string name="receivertips">请确认听筒是否有声音?</string>
+    <string name="speakertitle">扬声器&#160;</string>
     <string name="speakertips">请确认扬声器是否有声音?</string>
     <string name="headsettiltle">耳机&#160;</string>
     <string name="headsetplus">耳机已插入！</string>
     <string name="headsetnoplus">耳机未插入！</string>
     <string name="fmtips">正在搜索电台...</string>
-    <string name="fmnostart">请插入耳机,然后搜索电台.</string>
+    <string name="fmnostart">请插入耳机...</string>
     <string name="fmtitle">FM&#160;</string>
     <string name="fmsearch">搜索</string>
     <string name="fmnoradio">未搜索到电台</string>
@@ -59,10 +59,19 @@
     <string name="calinogsm">无GSM</string>
     <string name="calisucess">校准成功</string>
     <string name="fmnext">下一个</string>
-    <string name="cameratitle">摄像头</string>
+    <string name="cameratitle">摄像头&#160;</string>
     <string name="backcamerapass"><Data><![CDATA[<font color="#00ff00">后置摄像头通过&#160;</font>]]></Data></string>
     <string name="frontcamerapass"><Data><![CDATA[<font color="#00ff00">前置摄像头通过&#160;</font>]]></Data></string>
     <string name="backcamerafail"><Data><![CDATA[<font color="#ff0000">后置摄像头失败</font>]]></Data></string>
     <string name="frontcamerafail"><Data><![CDATA[<font color="#ff0000">前置摄像头失败</font>]]></Data></string>
+    <string name="sdcardtitle">存储卡&#160;</string>
+    <string name="sdcardfind">检测到Sdcard</string>
+    <string name="sdcardnofind">请插入Sdcard</string>
+    <string name="otgtitle">OTG&#160;</string>
+    <string name="otgnofind">请插入OTG及U盘...</string>
+    <string name="otgfind">检测到OTG U盘.</string>
+    <string name="simtitle">SIM卡&#160;</string>
+    <string name="simpass"><Data><![CDATA[<font color="#00ff00">SIM%1$d通过&#160;</font>]]></Data></string>
+    <string name="simfaile"><Data><![CDATA[<font color="#ff0000">SIM%1$d失败&#160;</font>]]></Data></string>
 
 </resources>

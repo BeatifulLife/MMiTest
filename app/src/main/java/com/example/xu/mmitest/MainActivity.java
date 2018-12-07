@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,16 +38,20 @@ public class MainActivity extends AppCompatActivity {
     private FM mFm;
     private CFT mCft;
     private Camera mCamera;
-    private boolean isInit = false;
+    private Sdcard mSdcard;
+    private OTG mOtg;
+    private SIM mSim;
+    private static boolean isInit = false;
 
     private ArrayList<Item> itemList = new ArrayList<Item>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
-        init();
-        requestAllPermission();
+        initItem();
+        //requestAllPermission();
     }
 
     private void init(){
@@ -70,12 +75,15 @@ public class MainActivity extends AppCompatActivity {
         mFm = new FM(this);
         mCft = new CFT(this);
         mCamera = new Camera(this,mFeatureSupport.isSupportBackCamera(),mFeatureSupport.isSupportFrontCamera());
+        mSdcard = new Sdcard(this);
+        mOtg = new OTG(this);
+        mSim = new SIM(this);
         isInit = true;
     }
 
     private void initItem(){
 
-        if (!isInit){
+        if (mFeatureSupport== null || !isInit){
             init();
         }
         if (mFeatureSupport.isSupportKey()){
@@ -126,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             mBackFlash.inVisible();
         }
 
-        if (mFeatureSupport.isSupportBackFlash()){
+        if (mFeatureSupport.isSupportFrontFlash()){
             itemList.add(mFrontFlash);
         }else{
             mFrontFlash.inVisible();
@@ -191,6 +199,24 @@ public class MainActivity extends AppCompatActivity {
         }else{
             mCamera.inVisible();
         }
+
+        if (mFeatureSupport.isSupportSdcard()){
+            itemList.add(mSdcard);
+        }else {
+            mSdcard.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportOtg()){
+            itemList.add(mOtg);
+        }else {
+            mOtg.inVisible();
+        }
+
+        if (mFeatureSupport.isSupportSim()){
+            itemList.add(mSim);
+        }else {
+            mSim.inVisible();
+        }
     }
 
 
@@ -225,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        doTestAll();
     }
 
 

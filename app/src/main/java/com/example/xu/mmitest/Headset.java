@@ -24,6 +24,7 @@ public class Headset implements Item{
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.headsetitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.headsetline).setVisibility(View.GONE);
     }
 
     public void startHeadset() {

@@ -47,6 +47,7 @@ public class ProximitySensor implements SensorEventListener,Item {
     @Override
     public void inVisible(){
         mLinearLayout.setVisibility(View.GONE);
+        mActivity.findViewById(R.id.proximityline).setVisibility(View.GONE);
     }
 
     @Override

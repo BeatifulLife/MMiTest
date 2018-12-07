@@ -47,6 +47,7 @@ public class LightSensor implements SensorEventListener,Item {
     @Override
     public void inVisible(){
         mLinearLayout.setVisibility(View.GONE);
+        mActivity.findViewById(R.id.lightsensorline).setVisibility(View.GONE);
     }
 
     @Override

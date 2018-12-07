@@ -11,12 +11,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Receiver implements View.OnClickListener,Item {
     private Activity mActivity;
     private TextView mTextView;
     private static boolean isReceiverTest = false;
     private MediaPlayer mMediaPlay;
+    private ScheduledExecutorService scheduledExecutorService;
     public Receiver(Activity activity){
         mActivity = activity;
         mTextView = activity.findViewById(R.id.receivertips);
@@ -30,6 +34,7 @@ public class Receiver implements View.OnClickListener,Item {
         if (isReceiverTest) {return;}
         AudioManager audioManager = (AudioManager) mActivity.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setStreamVolume(AudioManager.STREAM_VOICE_CALL,audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), 0);
+        audioManager.setRouting(AudioManager.MODE_IN_CALL, AudioManager.ROUTE_EARPIECE, AudioManager.ROUTE_ALL);
         mMediaPlay = new MediaPlayer();
         AudioAttributes.Builder builder = new AudioAttributes.Builder();
         builder.setLegacyStreamType(AudioManager.STREAM_VOICE_CALL);
@@ -57,6 +62,7 @@ public class Receiver implements View.OnClickListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.receiveritem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.receiverline).setVisibility(View.GONE);
     }
 
     @Override
@@ -75,11 +81,22 @@ public class Receiver implements View.OnClickListener,Item {
 
     @Override
     public void startItem() {
-        startReceiver();
+        scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
+        scheduledExecutorService.schedule(new Runnable() {
+            @Override
+            public void run() {
+                startReceiver();
+            }
+        },4000,TimeUnit.MILLISECONDS);
+
     }
 
     @Override
     public void stopItem() {
+        if (scheduledExecutorService!= null){
+            scheduledExecutorService.shutdownNow();
+            scheduledExecutorService = null;
+        }
         stopReceiver();
     }
 }

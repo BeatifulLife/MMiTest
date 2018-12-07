@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.GpsSatellite;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -41,7 +40,7 @@ public class GPS implements LocationListener,Item {
     private boolean mPRN1Found = false;
     private boolean isGpsReges = false;
     private Object obj= new Object();
-    private static boolean isHasTest = false;
+    private static boolean isGpsTest = false;
 
     public GPS(Activity activity) {
         this.mActivity = activity;
@@ -77,7 +76,7 @@ public class GPS implements LocationListener,Item {
     private Handler myHandler = new Handler();
     public void startGps(){
         synchronized (obj) {
-            if (isHasTest){return;}
+            if (isGpsTest){return;}
             init();
         };
     }
@@ -99,6 +98,7 @@ public class GPS implements LocationListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.gpsitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.gpsline).setVisibility(View.GONE);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class GPS implements LocationListener,Item {
         }
         String tips="";
         if (mCounter>=60){
-            isHasTest = true;
+            isGpsTest = true;
             stopGps();
         }
 

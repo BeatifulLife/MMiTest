@@ -74,5 +74,6 @@ public class FrontFlashLight implements View.OnClickListener,Item {
     @Override
     public void inVisible() {
         mActivity.findViewById(R.id.frontflashlightitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.frontflashline).setVisibility(View.GONE);
     }
 }

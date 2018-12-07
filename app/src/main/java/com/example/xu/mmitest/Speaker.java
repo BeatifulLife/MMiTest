@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Speaker implements View.OnClickListener,Item {
 
@@ -18,6 +21,7 @@ public class Speaker implements View.OnClickListener,Item {
     private MediaPlayer mMediaPlay;
     private Activity mActivity;
     private static boolean isSpeakerTest = false;
+    private ScheduledExecutorService scheduledExecutorService;
     public Speaker(Activity activity){
         mActivity = activity;
         mTextView = mActivity.findViewById(R.id.speakertips);
@@ -30,6 +34,7 @@ public class Speaker implements View.OnClickListener,Item {
         if (isSpeakerTest) {return;}
         AudioManager audioManager = (AudioManager) mActivity.getSystemService(Context.AUDIO_SERVICE);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,audioManager.getStreamMaxVolume(AudioManager.STREAM_VOICE_CALL), 0);
+        audioManager.setRouting(AudioManager.MODE_NORMAL, AudioManager.ROUTE_SPEAKER, AudioManager.ROUTE_ALL);
         mMediaPlay = new MediaPlayer();
         AudioAttributes.Builder builder = new AudioAttributes.Builder();
         builder.setLegacyStreamType(AudioManager.STREAM_MUSIC);
@@ -57,6 +62,7 @@ public class Speaker implements View.OnClickListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.speakeritem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.speakerline).setVisibility(View.GONE);
     }
 
     @Override
@@ -75,11 +81,22 @@ public class Speaker implements View.OnClickListener,Item {
 
     @Override
     public void startItem() {
-        startSpeaker();
+        scheduledExecutorService = new ScheduledThreadPoolExecutor(1);
+        scheduledExecutorService.schedule(new Runnable() {
+            @Override
+            public void run() {
+                startSpeaker();
+            }
+        },5000,TimeUnit.MILLISECONDS);
+
     }
 
     @Override
     public void stopItem() {
+        if (scheduledExecutorService!=null){
+            scheduledExecutorService.shutdownNow();
+            scheduledExecutorService = null;
+        }
         stopSpeaker();
     }
 }

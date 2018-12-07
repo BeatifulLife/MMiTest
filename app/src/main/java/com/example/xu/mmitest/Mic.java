@@ -158,6 +158,7 @@ public class Mic implements View.OnClickListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.micitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.micline).setVisibility(View.GONE);
     }
 
     @Override

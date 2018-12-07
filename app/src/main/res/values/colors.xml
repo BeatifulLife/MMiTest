@@ -3,6 +3,12 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="itemtiltlecolor">#FFFFFFFF</color>
     <color name="passbuttoncolor">#Ff008577</color>
     <color name="failbuttoncolor">#FFD81B60</color>
+    <color name="linecolor">#33653383</color>
+    <color name="btnstrokecolor">#FFBEBEBE</color>
+    <color name="keybtntextcolor">#CC483D8B</color>
+    <color name="fmbtncolor">#ff1d1626</color>
+    <color name="micbtncolor">#ff1d1626</color>
 </resources>

@@ -79,6 +79,7 @@ public class Camera implements View.OnClickListener,Item{
     private boolean isFrontCameraPass = false;
     private boolean mSupportFront = true;
     private boolean mSupportBack = true;
+    private static boolean isCameraTest = false;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -88,6 +89,7 @@ public class Camera implements View.OnClickListener,Item{
     }
 
     public Camera(MainActivity activity,boolean hasBack,boolean hasFront){
+        isBackShouldOpen = true;
         mSupportFront = hasFront;
         mSupportBack = hasBack;
         if (!mSupportBack){
@@ -118,15 +120,19 @@ public class Camera implements View.OnClickListener,Item{
     }
 
     public void startCamera(){
-        isBackShouldOpen = true;
-        startBackgroundThread();
-        synchronized (obj){
-            if (mTextureView.isAvailable()) {
-                openCamera(mTextureView.getWidth(), mTextureView.getHeight());
-            } else {
-                mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
-            }
+        if (isCameraTest){
+            return;
         }
+        startBackgroundThread();
+        mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+        //mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+        /*
+        if (mTextureView.isAvailable()) {
+            openCamera(mTextureView.getWidth(), mTextureView.getHeight());
+        } else {
+            mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+        }*/
+
     }
 
     public void stopCamera(){
@@ -593,7 +599,7 @@ public class Camera implements View.OnClickListener,Item{
                         public void run() {
                             mActivity.findViewById(R.id.camerabtnline).setVisibility(View.VISIBLE);
                         }
-                    },1500);
+                    },2000);
                     isBackShouldOpen = false;
                     synchronized (obj) {
                         if(isCameraOpen) {
@@ -602,8 +608,8 @@ public class Camera implements View.OnClickListener,Item{
                         reopenCamera();
                     }
                 }else{
-                    stopCamera();
                     mActivity.findViewById(R.id.camerabtnline).setVisibility(View.GONE);
+                    stopCamera();
                     mTextureView.setVisibility(View.GONE);
                     String text = "";
                     if (mSupportBack) {
@@ -622,6 +628,7 @@ public class Camera implements View.OnClickListener,Item{
                         }
                     }
                     mTextView.setText(Html.fromHtml(text,0));
+                    isCameraTest = true;
                 }
 
 
@@ -658,6 +665,9 @@ public class Camera implements View.OnClickListener,Item{
 
 
     private void stopBackgroundThread() {
+        if (mBackgroundThread == null){
+            return;
+        }
         mBackgroundThread.quitSafely();
         try {
             mBackgroundThread.join();

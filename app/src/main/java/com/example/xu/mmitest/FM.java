@@ -39,6 +39,7 @@ public class FM implements View.OnClickListener,Item {
     private TextView mTextView;
     private short fmList[] = null;
     private int index = 0;
+    private SearchTask searchTask;
     public FM(MainActivity activity){
         mActicity = activity;
         searchBtn = mActicity.findViewById(R.id.fmsearchbtn);
@@ -54,6 +55,7 @@ public class FM implements View.OnClickListener,Item {
         failBtn.setOnClickListener(this);
         mAudioManager = (AudioManager) mActicity.getSystemService(Context.AUDIO_SERVICE);
         mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC, mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+        searchTask = new SearchTask();
     }
 
     private BroadcastReceiver headsetReceiver = new BroadcastReceiver() {
@@ -82,6 +84,12 @@ public class FM implements View.OnClickListener,Item {
         stopFm();
     }
 
+    @Override
+    public void inVisible() {
+        mActicity.findViewById(R.id.fmitem).setVisibility(View.GONE);
+        mActicity.findViewById(R.id.fmline).setVisibility(View.GONE);
+    }
+
     public   void startFm(){
         if (isFmTest) {
             return;
@@ -99,6 +107,9 @@ public class FM implements View.OnClickListener,Item {
     }
 
     public void stopFm(){
+        if(mService!=null) {
+            mService.setFmMainActivityForeground(false);
+        }
         exitService();
         synchronized (obj){
             if (isReges){
@@ -148,44 +159,41 @@ public class FM implements View.OnClickListener,Item {
     }
 
     private void searchFm(){
-        searchBtn.setEnabled(false);
-        nextBtn.setEnabled(false);
-        mTextView.setText(R.string.fmtips);
-        mActicity.myHandler.post(new Runnable() {
-            @Override
-            public void run() {
+        searchTask.execute();
+        /*
+         searchBtn.setEnabled(false);
+         nextBtn.setEnabled(false);
+         mTextView.setText(R.string.fmtips);
 
-                mTextView.setText(R.string.fmtips);
-                if (mService!=null){
-                    if (mService.isScanning()){
-                        mService.stopScan();
-                    }
-                    FmNative.setMute(true);
-                    FmNative.setRds(false);
-                    fmList = FmNative.autoScan();
-
-                    if (!mIsServiceBinded||!mIsServiceStarted){
-                        return;
-                    }
-                    if (fmList != null && fmList.length > 0){
-                        defaultFreq = fmList[0];
-                        float value = (float) defaultFreq/10f;
-                        index = 0;
-                        mService.tuneStationAsync(value);
-                        mTextView.setText(""+value);
-                        FmNative.setRds(true);
-                        FmNative.setMute(false);
-                        nextBtn.setEnabled(true);
-                    }else{
-                        mTextView.setText(R.string.fmnoradio);
-                    }
-                }
-
-                searchBtn.setEnabled(true);
-
+        if (mService!=null){
+            if (mService.isScanning()){
+                mService.stopScan();
             }
-        });
+            FmNative.setMute(true);
+            FmNative.setRds(false);
+            fmList = FmNative.autoScan();
 
+            if (!mIsServiceBinded||!mIsServiceStarted || !mService.isActivityForeground()){
+                return;
+            }
+            if (fmList != null && fmList.length > 0){
+                defaultFreq = fmList[0];
+                final float value = (float) defaultFreq/10f;
+                index = 0;
+                mService.tuneStationAsync(value);
+                mTextView.setText(""+value);
+
+                FmNative.setRds(true);
+                FmNative.setMute(false);
+                nextBtn.setEnabled(true);
+
+            }else{
+                mTextView.setText(R.string.fmnoradio);
+            }
+        }
+
+        searchBtn.setEnabled(true);
+        */
     }
 
     private void nextFm(){
@@ -384,6 +392,67 @@ public class FM implements View.OnClickListener,Item {
 
         @Override
         protected void onPostExecute(Void result) {
+        }
+    }
+
+    private class SearchTask extends  AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            FM.this.mActicity.myHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    searchBtn.setEnabled(false);
+                    nextBtn.setEnabled(false);
+                    mTextView.setText(R.string.fmtips);
+                }
+            });
+
+
+            if (mService!=null){
+                if (mService.isScanning()){
+                    mService.stopScan();
+                }
+                FmNative.setMute(true);
+                FmNative.setRds(false);
+                fmList = FmNative.autoScan();
+
+                if (!mIsServiceBinded||!mIsServiceStarted || !mService.isActivityForeground()){
+                    return null;
+                }
+                if (fmList != null && fmList.length > 0){
+                    defaultFreq = fmList[0];
+                    final float value = (float) defaultFreq/10f;
+                    index = 0;
+                    mService.tuneStationAsync(value);
+                    FmNative.setRds(true);
+                    FmNative.setMute(false);
+                    FM.this.mActicity.myHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mTextView.setText(""+value);
+                            nextBtn.setEnabled(true);
+                        }
+                    });
+
+
+                }else{
+                    FM.this.mActicity.myHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mTextView.setText(R.string.fmnoradio);
+                        }
+                    });
+
+                }
+            }
+            FM.this.mActicity.myHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    searchBtn.setEnabled(true);
+                }
+            });
+            return null;
         }
     }
 }

@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,7 +31,7 @@ public class Bluetooth implements Item{
     private Map<String,String> map = new HashMap<String,String>();
     private Object obj = new Object();
     private boolean isBluetoothReges = false;
-    private static boolean isHasTest = false;
+    private static boolean isBluetoothTest = false;
 
     public Bluetooth(Activity activity) {
         this.mTextView = activity.findViewById(R.id.bluetoothtips);
@@ -75,15 +74,15 @@ public class Bluetooth implements Item{
 
     private Handler myHandler = new Handler();
     public void startBluetooth(){
-        myHandler.post(new Runnable() {
+        myHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 synchronized (obj) {
-                    if (isHasTest) {return;}
+                    if (isBluetoothTest) {return;}
                     init();
                 }
             }
-        });
+        },2000);
 
     }
 
@@ -103,6 +102,7 @@ public class Bluetooth implements Item{
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.bluetoothitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.bluetoothline).setVisibility(View.GONE);
     }
 
     BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
@@ -150,12 +150,12 @@ public class Bluetooth implements Item{
                 }
 
                 if (devicenum==0){
-                    SystemClock.sleep(5000);
+                    //SystemClock.sleep(5000);
                     if (isBluetoothReges) {
                         mBluetoothAdapter.startDiscovery();
                     }
                 }else {
-                    isHasTest = true;
+                    isBluetoothTest = true;
                     stopBluetooth();
                 }
             }

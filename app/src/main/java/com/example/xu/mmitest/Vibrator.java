@@ -51,13 +51,15 @@ public class Vibrator implements View.OnClickListener,Item {
             Log.i("MYTEST","Vibrator Here1");
             mVibrator.vibrate(vibtime,0);
         }
+        /*
         schedule = new ScheduledThreadPoolExecutor(1);
         schedule.schedule(new Runnable() {
             @Override
             public void run() {
                 stopVibrator();
             }
-        },10000,TimeUnit.MILLISECONDS);
+        },15000,TimeUnit.MILLISECONDS);
+        */
         isStartVib = true;
         mTextView.setTextColor(Color.YELLOW);
         mTextView.setText(mResource.getString(R.string.vibratortips));
@@ -105,6 +107,7 @@ public class Vibrator implements View.OnClickListener,Item {
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.vibratoritem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.vibratorline).setVisibility(View.GONE);
     }
 
     @Override

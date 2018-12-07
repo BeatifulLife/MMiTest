@@ -71,5 +71,6 @@ public class BackFlashLight implements View.OnClickListener,Item {
     @Override
     public void inVisible() {
         mActivity.findViewById(R.id.backflashlightitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.backflashline).setVisibility(View.GONE);
     }
 }

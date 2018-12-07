@@ -23,8 +23,8 @@ public class FeatureSupport {
 
     private final boolean HAS_LED = true;
     private final boolean HAS_RECEIVER = true;
-    private final boolean HAS_HEADSET = true;
-    private final boolean HAS_SPEAKER = true;
+    private final boolean HAS_HEADSET = false;
+    private final boolean HAS_SPEAKER = false;
     private final boolean HAS_KEY = true;
     private final boolean HAS_WIFI = true;
     private final boolean HAS_LCD = false;
@@ -38,9 +38,12 @@ public class FeatureSupport {
     private final boolean HAS_GSENSOR = true;
     private final boolean HAS_VIBRATOR = true;
     private final boolean HAS_MAINMIC = true;
-    private final boolean HAS_LIGHTSENSOR = true;
-    private final boolean HAS_PROXIMITY = true;
+    private final boolean HAS_LIGHTSENSOR = false;
+    private final boolean HAS_PROXIMITY = false;
     private final boolean HAS_CFT = true;
+    private final boolean HAS_SDCARD = true;
+    private final boolean HAS_OTG = true;
+    private final boolean HAS_SIM = true;
     private Activity mActivity;
     private String backCamereId;
     private String frontCameraId;
@@ -217,4 +220,11 @@ public class FeatureSupport {
     public boolean isSupportFm() { return  HAS_FM; }
 
     public boolean isSupportCFT() { return  HAS_CFT; }
+
+    public boolean isSupportSdcard() { return  HAS_SDCARD; }
+
+    public boolean isSupportOtg() { return  HAS_OTG; }
+
+    public boolean isSupportSim() { return  HAS_SIM; }
+
 }

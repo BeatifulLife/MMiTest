@@ -24,6 +24,7 @@ public class CFT implements Item{
     @Override
     public void inVisible(){
         mActivity.findViewById(R.id.caliitem).setVisibility(View.GONE);
+        mActivity.findViewById(R.id.caliline).setVisibility(View.GONE);
     }
 
     public void startCft(){

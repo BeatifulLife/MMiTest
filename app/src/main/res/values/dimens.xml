@@ -5,4 +5,32 @@
     <dimen name="itemTitleSize">20sp</dimen>
     <dimen name="itemTipsSize">20sp</dimen>
     <dimen name="itemBtnTextSize">20sp</dimen>
+    <dimen name="itemBtnHeight">30dp</dimen>
+    <dimen name="keyBtnTextSize">12sp</dimen>
+    <dimen name="keyBtnHeight">38dp</dimen>
+    <dimen name="micBtnHeight">36dp</dimen>
+    <dimen name="fmBtnHeight">36dp</dimen>
+    <dimen name="camerawidth">300dp</dimen>
+    <dimen name="cameraheight">200dp</dimen>
+
+    <dimen name="lineheight">1dp</dimen>
+    <dimen name="btnstrokewidth">1dp</dimen>
+    <dimen name="btnshaperadiu">10dp</dimen>
+
+
+
+    <dimen name="land_wavewidth">200dp</dimen>
+    <dimen name="land_waveheight">30dp</dimen>
+    <dimen name="land_itemTitleSize">18sp</dimen>
+    <dimen name="land_itemTipsSize">18sp</dimen>
+    <dimen name="land_itemBtnTextSize">15sp</dimen>
+    <dimen name="land_itemBtnHeight">30dp</dimen>
+    <dimen name="land_keyBtnTxtSize">12sp</dimen>
+    <dimen name="land_keyBtnHeight">32dp</dimen>
+    <dimen name="land_micBtnHeight">36dp</dimen>
+    <dimen name="land_fmBtnHeight">36dp</dimen>
+    <dimen name="land_camerawidth">300dp</dimen>
+    <dimen name="land_cameraheight">200dp</dimen>
+
+
 </resources>

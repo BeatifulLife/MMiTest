@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/failbuttoncolor" />
+    <stroke android:width="@dimen/btnstrokewidth"
+        android:color="@color/btnstrokecolor"/>
+    <corners
+        android:bottomLeftRadius="@dimen/btnshaperadiu"
+        android:bottomRightRadius="@dimen/btnshaperadiu"
+        android:topLeftRadius="@dimen/btnshaperadiu"
+        android:topRightRadius="@dimen/btnshaperadiu"/>
+
+</shape>
