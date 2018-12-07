@@ -10,8 +10,8 @@
     <dimen name="keyBtnHeight">38dp</dimen>
     <dimen name="micBtnHeight">36dp</dimen>
     <dimen name="fmBtnHeight">36dp</dimen>
-    <dimen name="camerawidth">300dp</dimen>
-    <dimen name="cameraheight">200dp</dimen>
+    <dimen name="camerawidth">240dp</dimen>
+    <dimen name="cameraheight">180dp</dimen>
 
     <dimen name="lineheight">1dp</dimen>
     <dimen name="btnstrokewidth">1dp</dimen>
@@ -29,8 +29,8 @@
     <dimen name="land_keyBtnHeight">32dp</dimen>
     <dimen name="land_micBtnHeight">36dp</dimen>
     <dimen name="land_fmBtnHeight">36dp</dimen>
-    <dimen name="land_camerawidth">300dp</dimen>
-    <dimen name="land_cameraheight">200dp</dimen>
+    <dimen name="land_camerawidth">240dp</dimen>
+    <dimen name="land_cameraheight">180dp</dimen>
 
 
 </resources>
